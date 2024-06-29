@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UsersPage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+</head>
+
+<body>
+    <!--BackGroundFlex-->
+    <div class="background">
+        <!-- Sidebar section -->
+        <aside>
+            <!--Icons&Buttons-->
+            <div id="sidebar" class="rounded">
+                <img id="company-logo" src="./asset/DataBeatsLogo.jpg" alt="Construction Company">
+                <ul id="nav-buttons">
+                    <li class="rounded"><span class="material-icons-outlined">group_add</span> Add Users </li>
+                    <li class="rounded"><span class="material-icons-outlined">fingerprint</span> Security</li>
+                </ul>
+                <!-- Form to Add New Users -->
+                <div class="add-user-form p-4 rounded" style="display: flex; flex-direction: column; justify-content: space-around;align-items: center; ">
+                    <h2 class="text-lg">Add New User</h2>
+                    <form action="/submit-user-details" method="post">
+                        <div class="form-field mb-4">
+                            <label for="username" class="form-label">Name:</label>
+                            <input type="text" id="username" name="username" required class="form-input">
+                        </div>
+                        <div class="form-field mb-4">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" id="email" name="email" required class="form-input">
+                        </div>
+                        <div class="form-field">
+                            <input type="submit" value="Add User" class="btn btn-blue">
+                        </div>
+                    </form>
+                </div>
+            </div>          
+        </aside>
+
+        <div class="container">
+            <!--Users-Header-->
+            <div>
+            <h1 class="text-lg">Users</h1>
+            <h3 class="mb-4">Welcome to the users web register</h3>
+            </div>                 
+            <!-- User List -->
+            <ul class="user-list p-4">
+                <li class="user-card mb-4">
+                    <h4 class="user-card-header"> UserName</h4>
+                    <span class="user-icon material-icons-outlined">account_circle</span>
+                    <h5> Full Name </h5>
+                    <h5> Role </h5>
+                    <h5> Address </h5>             
+                    
+                </li>
+                <li class="user-card mb-4">User 2</li>
+                <li class="user-card mb-4">User 3</li>
+                <li class="user-card mb-4">User 4</li>
+                <li class="user-card mb-4">User 5</li>
+                <li class="user-card mb-4">User 6</li>
+                <!-- Add more users here -->
+            </ul>            
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar section -->
+    <aside>
+        <div id="sidebar">
+            <img id="company-logo" src="./asset/company-logo.svg" alt="Construction Company">
+            <ul id="nav-buttons">
+                <li><span class="material-icons-outlined">home</span> Projects</li>
+                <li><span class="material-icons-outlined">fingerprint</span> Security</li>
+                <link href="https://fonts.cdnfonts.com/css/sublima" rel="stylesheet">
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content area -->
+    <main id="content">
+        <!-- Projects page (initially hidden) -->
+        <div class ="page" id="projects-page" style="display:block"> 
+            <!-- New project modal -->
+            <dialog id="new-project-modal">
+                <form id="new-project-form">         
+                    <h2> New Project</h2>
+                    <div class="input-list">
+                        <!-- Project name input field -->
+                        <div class="form-field-container">
+                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;"> domain</span>
+                                Name
+                            </label>
+                            <input name="name" id="project-name" type="text" placeholder="What's the name of your project?" style="padding-left: 30px; /* Your input styles here */">
+                            <h5 style="font-family: unset; color: grey; font-size: 10px; font-style: italic; padding-top: 5px;">TIP: Give it a short name</h5>
+                        </div>
+
+                        <!-- Project description input field -->
+                        <div class="form-field-container">
+                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;"> sort</span>
+                                Descritpion
+                            </label>
+                            <textarea name="description" id="project-description" cols="30" rows="5" placeholder="Enter Project Description"></textarea>
+                        </div>   
+
+                        <!-- Project role selection -->
+                        <div class="form-field-container">
+                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;"> person</span>
+                                Role
+                            </label>
+                            <select name = "userRole" id="project-role">
+                                <option>Architect</option>
+                                <option>Engineer</option>
+                                <option>Developer</option>
+                            </select>
+                        </div>
+
+                        <!-- Project status selection -->
+                        <div class="form-field-container">
+                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;"> question_mark</span>
+                                Status
+                            </label>
+                            <select name = "status" id="project-status">
+                                <option>Pending</option>
+                                <option>Active</option>
+                                <option>Finished</option>
+                            </select>
+                        </div>
+
+                        <!-- Finish date input -->
+                        <div class="form-field-container">
+                            <label for="finish-date" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;">event</span>
+                                Finish Date
+                            </label>
+                            <input name = "finishDate" id="finish-date" type="date" style="color: white; background-color: var(--background-200); padding: 15px; border-radius: 8px; border: none; font-size: var(--font-base);">
+                        </div>
+                       
+                        <!-- Form action buttons -->
+                        <div style="text-align: right">
+                            <button type="button" 
+                                style="background-color: transparent; color: white;" 
+                                onmouseover="this.style.backgroundColor='#444';" 
+                                onmouseout="this.style.backgroundColor='transparent';">Cancel</button>
+                            <button type="submit" 
+                                style="background-color: green; color: white;" 
+                                onmouseover="this.style.backgroundColor='#0f0';" 
+                                onmouseout="this.style.backgroundColor='green';">Accept</button>
+                        </div>
+                    </div>
+                </form>
+            </dialog>
+            
+            <!-- Projects header -->
+            <header>
+                <h2> Projects</h2>
+                <div>
+                    <button id="new-project-btn"> Add New Project </button>
+                </div>
+
+            </header>
+
+             <!-- Projects list -->
+             <div id="projects-list">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <p style="background-color: #ca8134; padding: 10px; border-radius: 8px;">PC1</p>
+                        <div>
+                            <h5>Project 1</h5>
+                            <p>Project 1 Description...</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-property">
+                            <p style="color: #969696;">Status</p>
+                            <p>Active</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <p style="background-color: #8a2be2; padding: 10px; border-radius: 8px;">PC2</p>
+                        <div>
+                            <h5>Project 2</h5>
+                            <p>Project 2 Description...</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-property">
+                            <p style="color: #969696;">Status</p>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <p style="background-color: #32cd32; padding: 10px; border-radius: 8px;">PC3</p>
+                        <div>
+                            <h5>Project 3</h5>
+                            <p>Project 3 Description...</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-property">
+                            <p style="color: #969696;">Status</p>
+                            <p>Finished</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <p style="background-color: #ff4500; padding: 10px; border-radius: 8px;">PC4</p>
+                        <div>
+                            <h5>Project 4</h5>
+                            <p>Project 4 Description...</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-property">
+                            <p style="color: #969696;">Status</p>
+                            <p>In Progress</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <p style="background-color: #1e90ff; padding: 10px; border-radius: 8px;">PC5</p>
+                        <div>
+                            <h5>Project 5</h5>
+                            <p>Project 5 Description...</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-property">
+                            <p style="color: #969696;">Status</p>
+                            <p>On Hold</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>     
+        <!-- Project details section -->
+        <div class ="page" id="project-details">
+            <!--LEFT-Project Details-->
+            <header >
+                <div>                    
+                    <h2>Hospital Center</h2>
+                    <p style="color:#969696">Community Hospital location</p>
+                </div>
+            </header>
+            <div class="main-page-content">
+                <div style="display: flex; flex-direction: column;  row-gap: 20px;" >
+                    <!--DashboardCard-->                  
+                    <div class="dashboard-card" style="padding: 30px 0;">
+                        <!--1stRow-->
+                        <div style="display: flex; justify-content: space-between ; padding: 30px;">
+                            <p style="font-size: 24px; color: white; background-color: darkorange; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px; padding: 10px; cursor: pointer; display: inline-block;">H</p>
+                            <button class="btn-secondary">
+                                <p> Click Here </p>
+                            </button>
+                        </div>
+                        <!--2ndRow-->
+                        <div style = "padding:  30px;">
+                            <h2> Hospital Center </h2>
+                            <p> Community hospital located at downtwon </p>
+                        </div>
+                        <!--Fields-->
+                        <div style="display: flex; column-gap: 30px; padding:30px">
+                            <div>
+                                <p style=  "color: #969696; font-size: var(--font-medium);"> Status </p>
+                                <p> Active </p>
+                            </div>
+                            <div>
+                                <p style=  "color: #969696; font-size: var(--font-medium);"> Cost</p>
+                                <p> $ 2.542.000 </p>
+                            </div>
+                            <div>
+                                <p style=  "color: #969696; font-size: var(--font-medium);"> Role </p>
+                                <p> Engineer</p>
+                            </div>
+                            <div>
+                                <p style=  "color: #969696; font-size: var(--font-medium);">Finish Date </p>
+                                <p> 2023-05-01 </p>
+                            </div>
+                        </div>
+                       <!-- Progress Bar -->
+                        <div style="margin-top: 20px; background-color: var(--background-100) ; border-radius: 14px; padding: 30px; font-size: 14px;">
+                            <div id="myProgress" style="width: 80%; height: 40px; background-color: #2ecc71; border-radius: 10px; color: #ecf0f1; line-height: 40px; text-align: center;">
+                            80%
+                        </div>
+                    </div>
+
+                    </div>
+                    <!--ToDoList-->
+                    <div class="dashboard-card">
+                        <!--SearchBar-->
+                        <div style="padding: 20px 30px; display: flex; align-items: center;justify-content: space-between;">
+                            <h4>To-Do</h4> 
+                            <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="material-icons-outlined">search</span>
+                                    <input type="text" placeholder="Search To-Do by name">
+                                </div>  
+                                <span class="material-icons-outlined">add</span>
+                            </div>
+                        </div>
+                        <!--ToDoListItem-->
+                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
+                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
+                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
+                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
+                                        construction
+                                    </span>
+                                    <div style="flex-grow: 1; margin-left: 16px;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
+                                    </div>
+                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
+                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
+                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
+                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
+                                        construction
+                                    </span>
+                                    <div style="flex-grow: 1; margin-left: 16px;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
+                                    </div>
+                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
+                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
+                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
+                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
+                                        construction
+                                    </span>
+                                    <div style="flex-grow: 1; margin-left: 16px;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
+                                    </div>
+                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
+                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
+                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
+                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
+                                        construction
+                                    </span>
+                                    <div style="flex-grow: 1; margin-left: 16px;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
+                                    </div>
+                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>  
+                <!--RIGHT-Viewer container -->
+                <div id="viewer-container" class="dashboard-card">
+            </div> 
+        </div> 
+    </main>    
+    <script type="module" src= "./src/index.js"></script>
+</body>
+</html>
+
+
+
+
+

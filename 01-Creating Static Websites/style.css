@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+
+:root {
+    --primary: #029AE0;
+    --primary-100: #073044;
+    --primary-200: #415A66;
+    --primary-300: #017CB3;
+    --primary-400: #5086E6;
+    --background: #202124;
+    --background-100: #26282b;
+    --background-200: #3b3c3f;
+    --font-xs: 10px; 
+    --font-sm: 12px;
+    --font-base: 14px;
+    --font-lg: 16px;
+    --font-xl: 18px;
+    --font-2xl: 20px;
+    --font-3xl: 22px;
+    --font-medium: 14px; /* Added this variable */
+}
+
+* {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 'sidebar content';
+    height: 100vh;
+    background-color: var(--background);
+    color: white;
+}
+
+/* General Styles */
+
+h2 {
+    font-size: var(--font-3xl);
+    font-weight: bolder;
+}
+
+h3 {
+    font-size: var(--font-2xl);
+}
+
+h4 {
+    font-size: var(--font-xl);
+}
+
+h5 {
+    font-size: var(--font-lg);
+}
+
+button {
+    padding: 8px 15px;
+    cursor: pointer;
+    height: 40px;
+    font-size: var(--font-medium);
+    background-color: var(--primary);
+    color: white;
+    border-radius: 100px;
+    border: none;
+}
+
+button:hover {
+    background-color: var(--primary-200);
+}
+
+.page{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#company-logo {
+    height: 65px;
+    padding-bottom: 15px;
+}
+
+/* Sidebar Style */
+
+#sidebar {
+    background-color: var(--background);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}
+
+#nav-buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+#nav-buttons li {
+    list-style-type: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    background-color: var(--primary);
+}
+
+#nav-buttons li:hover {
+    background-color: var(--primary-200);
+}
+
+/* Content Style */
+
+#content header {
+    padding: 30px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-card {
+    background-color: var(--background-100);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    outline: 2px solid var(--primary);
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    padding: 15px 20px;
+    align-items: center;
+    justify-content: start;
+    border-bottom: 2px solid #3b3c3f;
+    height: 60px;
+}
+
+.card-content {
+    padding: 30px 20px;
+    background-color: var(--background-200);
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: start;
+}
+
+.card-property {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#projects-list {
+    display: grid;
+    padding: 20px 40px;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/*Form Styles*/
+
+dialog {
+    background-color: transparent;
+    border: none;
+    margin: auto;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+form {
+    width: 450px;
+    border-radius: 10px;
+    background-color: var(--background-100);
+    color: white;
+}
+
+form h2 {
+    padding: 20px;
+    border-bottom: 2px solid var(--background);
+    color: white;
+}
+
+form .input-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    row-gap: 25px;
+}
+
+form .form-field-container {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select {
+    color: white;
+    background-color: var(--background-200);
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: var(--font-base);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--primary);
+}
+
+/* Project Details Page */
+
+.dashboard-card {
+    background-color: var(--background-100);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    gap: 20px; /* This will create a 20px gap between flex items */
+    
+}
+
+#project-details > .main-page-content {
+    display: grid;
+    padding: 20px 40px;
+    gap: 30px;
+    grid-template-columns:  475px 1fr;
+    height: 100%;   
+    row-gap: 10px;
+}
+
+#project-details header {
+    background-color: var(--background);
+    padding: 20px;
+    text-align: left;
+}
+#project-details header h2 {
+    margin: 0;
+    color: #fff;
+}
+#project-details header p {
+    color: #aaa;
+}
+.main-page-content {
+    
+    padding: 0 20px;
+    
+}
+
+
+/*Project information Card*/
+
+.btn-secondary{
+    background-color: transparent;
+    outline: 2px solid #969696;
+    width: 100px;
+    text-align: center;
+    
+    
+    
+    
+}
+
+.btn-secondary:hover{
+    background-color: var(--primary);
+    outline: none;    
+}
+
+.todo-item{
+    padding: 2px;
+    background-color: var(--background-200);
+    border-radius: 10px;
+    cursor: pointer; 
+}
+.todo-item:hover{
+    background-color: var(--primary);
+}
+
+
+
+
+

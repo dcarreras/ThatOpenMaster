@@ -1,0 +1,263 @@
+/* style.css */
+
+/* Base styles */
+
+:root {
+    --primary: #e7f900;
+    --primary-100: #073044;
+    --primary-200: #415A66;
+    --primary-300: #b8c600;
+    --primary-400: #5086E6;
+    --background: #202124;
+    --background-100: #111111;
+    --background-200: #252525;
+    --font-xs: 10px; 
+    --font-sm: 12px;
+    --font-base: 14px;
+    --font-lg: 16px;
+    --font-xl: 18px;
+    --font-2xl: 20px;
+    --font-3xl: 22px;
+    --font-medium: 14px; /* Added this variable */
+}
+
+* {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.background{
+  display: flex;
+  flex-direction: row;  
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1280px;
+  padding: 20px; /* Set padding to 20px on all sides */
+  align-items: stretch; /* This will make its children (user-list) to stretch and fit the container width */
+  width: 100%; /* Ensures that the container takes full width of its parent */
+}
+
+/* General Styles */
+
+  h2 {
+    font-size: var(--font-3xl);
+    font-weight: bolder;
+    
+}
+
+h3 {
+    font-size: var(--font-2xl);
+}
+
+h4 {
+    font-size: var(--font-xl);
+}
+
+h5 {
+    font-size: var(--font-lg);
+}
+
+
+  
+/* Utility classes */
+  .mt-4 {
+    margin-top: 1rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .p-4 {
+    padding: 1rem;
+  }
+  
+  .rounded {
+    border-radius: 0.25rem;
+    width: 200px;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle; 
+    color: black; 
+  }
+  
+  /* Typography */
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  /*Buttons&Icons*/
+  
+  button {
+    padding: 8px 15px;
+    cursor: pointer;
+    height: 40px;
+    font-size: var(--font-medium);
+    background-color: var(--primary);
+    color: white;
+    border-radius: 100px;
+    border: none;
+}
+
+button:hover {
+    background-color: var(--primary-200);
+}
+
+#company-logo {
+    height: 100px;
+    padding-bottom: 15px;
+}
+
+/* Sidebar Style */
+
+#sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+    background-color: var(--background);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}
+
+#nav-buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+#nav-buttons li {
+    list-style-type: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    background-color: var(--primary);
+}
+
+#nav-buttons li:hover {
+    background-color: var(--primary-200);
+}
+
+/* Navigation styles */
+  .navbar {
+    background-color: #2d3748;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  .navbar-search {
+    padding: 0.5rem;
+    border: 1px solid #4a5568;
+    border-radius: 0.25rem;
+    background-color: #2d3748;
+    color: #a0aec0;
+  }
+
+
+  /* User List styles*/
+
+  .user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust column width as needed */
+    gap: 20px;
+    align-items: center;
+    padding: 0; /* Remove padding here as the container already has padding */
+    list-style: none; /* Remove default list style */
+    width: calc(100% - 40px); /* Adjust width to account for padding */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    overflow-y: auto; /* Adds vertical scrollbar if needed */
+    margin: 0; /* Reset default margin */
+}
+  
+  /* User cards */
+  .user-card {
+    background-color: #2d3748;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .user-card-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-card-body {
+    padding: 0.5rem 0;
+  }
+
+  .user-icon {
+    display: block; 
+    text-align: center; 
+    font-size: 24px; 
+    margin: 10px 0;
+  }
+  
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-blue {
+    background-color: var(--primary)
+    color: #fff;
+  }
+  
+  .btn-blue:hover {
+    background-color: var(--primary-300);
+  }
+  
+  .btn-red {
+    background-color: #f56565;
+    color: #fff;
+  }
+  
+  .btn-red:hover {
+    background-color: #e53e3e;
+  }
+  
+  /* Form styles */
+  .form-label {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5rem; 
+    align-items: center; 
+  }
+  
+  .form-input {
+    padding: 0.5rem;
+    border: 1px solid #4a5568;
+    border-radius: 0.25rem;
+    background-color: #2d3748;
+    color: #a0aec0;
+  }
+  
+  /* Responsive design */
+  @media (min-width: 768px) {
+    .background {
+      padding: 1.5rem;
+    }
+  }
+  
