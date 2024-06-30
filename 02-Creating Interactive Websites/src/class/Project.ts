@@ -22,6 +22,7 @@ export class Project implements IProject {
       this.status = data.status;
       this.userRole = data.userRole;
       this.finishDate = data.finishDate;
+      const card = document.createElement("div")
     }
   }
   
