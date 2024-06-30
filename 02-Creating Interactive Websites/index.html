@@ -25,7 +25,7 @@
     <!-- Main content area -->
     <main id="content">
         <!-- Projects page (initially hidden) -->
-        <div class ="page" id="projects-page" style="display:block"> 
+        <div class="page" id="projects-page" style="display:block"> 
             <!-- New project modal -->
             <dialog id="new-project-modal">
                 <form id="new-project-form">         
@@ -37,26 +37,26 @@
                                 <span class="material-icons-outlined" style="margin-right: 5px;"> domain</span>
                                 Name
                             </label>
-                            <input name="name" id="project-name" type="text" placeholder="What's the name of your project?" style="padding-left: 30px; /* Your input styles here */">
+                            <input name="name" id="project-name" type="text" placeholder="What's the name of your project?" style="padding-left: 30px;">
                             <h5 style="font-family: unset; color: grey; font-size: 10px; font-style: italic; padding-top: 5px;">TIP: Give it a short name</h5>
                         </div>
 
                         <!-- Project description input field -->
                         <div class="form-field-container">
-                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <label for="project-description" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
                                 <span class="material-icons-outlined" style="margin-right: 5px;"> sort</span>
-                                Descritpion
+                                Description
                             </label>
                             <textarea name="description" id="project-description" cols="30" rows="5" placeholder="Enter Project Description"></textarea>
                         </div>   
 
                         <!-- Project role selection -->
                         <div class="form-field-container">
-                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <label for="project-role" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
                                 <span class="material-icons-outlined" style="margin-right: 5px;"> person</span>
                                 Role
                             </label>
-                            <select name = "userRole" id="project-role">
+                            <select name="userRole" id="project-role">
                                 <option>Architect</option>
                                 <option>Engineer</option>
                                 <option>Developer</option>
@@ -65,11 +65,11 @@
 
                         <!-- Project status selection -->
                         <div class="form-field-container">
-                            <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <label for="project-status" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
                                 <span class="material-icons-outlined" style="margin-right: 5px;"> question_mark</span>
                                 Status
                             </label>
-                            <select name = "status" id="project-status">
+                            <select name="status" id="project-status">
                                 <option>Pending</option>
                                 <option>Active</option>
                                 <option>Finished</option>
@@ -82,7 +82,7 @@
                                 <span class="material-icons-outlined" style="margin-right: 5px;">event</span>
                                 Finish Date
                             </label>
-                            <input name = "finishDate" id="finish-date" type="date" style="color: white; background-color: var(--background-200); padding: 15px; border-radius: 8px; border: none; font-size: var(--font-base);">
+                            <input name="finishDate" id="finish-date" type="date" style="color: white; background-color: var(--background-200); padding: 15px; border-radius: 8px; border: none; font-size: var(--font-base);">
                         </div>
                        
                         <!-- Form action buttons -->
@@ -106,11 +106,11 @@
                 <div>
                     <button id="new-project-btn"> Add New Project </button>
                 </div>
-
             </header>
 
              <!-- Projects list -->
              <div id="projects-list">
+                
                 <!-- Project Card 1 -->
                 <div class="project-card">
                     <div class="card-header">
@@ -124,6 +124,18 @@
                         <div class="card-property">
                             <p style="color: #969696;">Status</p>
                             <p>Active</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Role</p>
+                            <p>Architect</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Cost</p>
+                            <p>$1,000,000</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Progress</p>
+                            <p>50%</p>
                         </div>
                     </div>
                 </div>
@@ -142,6 +154,18 @@
                             <p style="color: #969696;">Status</p>
                             <p>Pending</p>
                         </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Role</p>
+                            <p>Engineer</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Cost</p>
+                            <p>$2,500,000</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Progress</p>
+                            <p>20%</p>
+                        </div>
                     </div>
                 </div>
 
@@ -158,6 +182,18 @@
                         <div class="card-property">
                             <p style="color: #969696;">Status</p>
                             <p>Finished</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Role</p>
+                            <p>Developer</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Cost</p>
+                            <p>$3,000,000</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Progress</p>
+                            <p>100%</p>
                         </div>
                     </div>
                 </div>
@@ -176,6 +212,18 @@
                             <p style="color: #969696;">Status</p>
                             <p>In Progress</p>
                         </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Role</p>
+                            <p>Architect</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Cost</p>
+                            <p>$1,200,000</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Progress</p>
+                            <p>40%</p>
+                        </div>
                     </div>
                 </div>
 
@@ -193,66 +241,77 @@
                             <p style="color: #969696;">Status</p>
                             <p>On Hold</p>
                         </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Role</p>
+                            <p>Engineer</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Cost</p>
+                            <p>$500,000</p>
+                        </div>
+                        <div class="card-property">
+                            <p style="color: #969696;">Progress</p>
+                            <p>10%</p>
+                        </div>
                     </div>
                 </div>
             </div>  
         </div>     
         <!-- Project details section -->
-        <div class ="page" id="project-details">
-            <!--LEFT-Project Details-->
-            <header >
+        <div class="page" id="project-details">
+            <!-- LEFT-Project Details -->
+            <header>
                 <div>                    
                     <h2>Hospital Center</h2>
                     <p style="color:#969696">Community Hospital location</p>
                 </div>
             </header>
             <div class="main-page-content">
-                <div style="display: flex; flex-direction: column;  row-gap: 20px;" >
-                    <!--DashboardCard-->                  
+                <div style="display: flex; flex-direction: column; row-gap: 20px;">
+                    <!-- DashboardCard -->                  
                     <div class="dashboard-card" style="padding: 30px 0;">
-                        <!--1stRow-->
-                        <div style="display: flex; justify-content: space-between ; padding: 30px;">
+                        <!-- 1stRow -->
+                        <div style="display: flex; justify-content: space-between; padding: 30px;">
                             <p style="font-size: 24px; color: white; background-color: darkorange; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px; padding: 10px; cursor: pointer; display: inline-block;">H</p>
                             <button class="btn-secondary">
                                 <p> Click Here </p>
                             </button>
                         </div>
-                        <!--2ndRow-->
-                        <div style = "padding:  30px;">
+                        <!-- 2ndRow -->
+                        <div style="padding: 30px;">
                             <h2> Hospital Center </h2>
-                            <p> Community hospital located at downtwon </p>
+                            <p> Community hospital located at downtown </p>
                         </div>
-                        <!--Fields-->
-                        <div style="display: flex; column-gap: 30px; padding:30px">
+                        <!-- Fields -->
+                        <div style="display: flex; column-gap: 30px; padding: 30px;">
                             <div>
-                                <p style=  "color: #969696; font-size: var(--font-medium);"> Status </p>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Status </p>
                                 <p> Active </p>
                             </div>
                             <div>
-                                <p style=  "color: #969696; font-size: var(--font-medium);"> Cost</p>
-                                <p> $ 2.542.000 </p>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Cost</p>
+                                <p> $2,542,000 </p>
                             </div>
                             <div>
-                                <p style=  "color: #969696; font-size: var(--font-medium);"> Role </p>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Role </p>
                                 <p> Engineer</p>
                             </div>
                             <div>
-                                <p style=  "color: #969696; font-size: var(--font-medium);">Finish Date </p>
+                                <p style="color: #969696; font-size: var(--font-medium);">Finish Date </p>
                                 <p> 2023-05-01 </p>
                             </div>
                         </div>
-                       <!-- Progress Bar -->
-                        <div style="margin-top: 20px; background-color: var(--background-100) ; border-radius: 14px; padding: 30px; font-size: 14px;">
+                        <!-- Progress Bar -->
+                        <div style="margin-top: 20px; background-color: var(--background-100); border-radius: 14px; padding: 30px; font-size: 14px;">
                             <div id="myProgress" style="width: 80%; height: 40px; background-color: #2ecc71; border-radius: 10px; color: #ecf0f1; line-height: 40px; text-align: center;">
-                            80%
+                                80%
+                            </div>
                         </div>
                     </div>
-
-                    </div>
-                    <!--ToDoList-->
+                    <!-- ToDoList -->
                     <div class="dashboard-card">
-                        <!--SearchBar-->
-                        <div style="padding: 20px 30px; display: flex; align-items: center;justify-content: space-between;">
+                        <!-- SearchBar -->
+                        <div style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;">
                             <h4>To-Do</h4> 
                             <div style="display: flex; align-items: center;">
                                 <div style="display: flex; align-items: center;">
@@ -262,9 +321,9 @@
                                 <span class="material-icons-outlined">add</span>
                             </div>
                         </div>
-                        <!--ToDoListItem-->
-                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
-                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
+                        <!-- ToDoListItem -->
+                        <div style="display: flex; flex-direction: column; justify-content: space-around;">
+                            <div class="todo-item" style="color: white; font-family: Arial, sans-serif;">
                                 <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
                                     <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
                                         construction
@@ -276,61 +335,14 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
-                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
-                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
-                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
-                                        construction
-                                    </span>
-                                    <div style="flex-grow: 1; margin-left: 16px;">
-                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
-                                    </div>
-                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
-                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
-                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
-                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
-                                        construction
-                                    </span>
-                                    <div style="flex-grow: 1; margin-left: 16px;">
-                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
-                                    </div>
-                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style = "display: flex ; flex-direction: column; justify-content: space-around;">
-                            <div class="todo-item" style="color: white;  font-family: Arial, sans-serif;">
-                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
-                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
-                                        construction
-                                    </span>
-                                    <div style="flex-grow: 1; margin-left: 16px;">
-                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
-                                    </div>
-                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>  
-                <!--RIGHT-Viewer container -->
+                <!-- RIGHT-Viewer container -->
                 <div id="viewer-container" class="dashboard-card">
+                </div> 
             </div> 
         </div> 
     </main>    
-    <script type="module" src= "./src/index.ts"></script>
+    <script type="module" src="./src/index.ts"></script>
 </body>
 </html>
-
-
-
-
-
