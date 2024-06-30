@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 <body>
     <!-- Sidebar section -->
@@ -34,7 +33,7 @@
                         <!-- Project name input field -->
                         <div class="form-field-container">
                             <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
-                                <span class="material-icons-outlined" style="margin-right: 5px;"> domain</span>
+                                <span class="material-icons-outlined" style="margin-right: 5px;">domain</span>
                                 Name
                             </label>
                             <input name="name" id="project-name" type="text" placeholder="What's the name of your project?" style="padding-left: 30px;">
@@ -44,7 +43,7 @@
                         <!-- Project description input field -->
                         <div class="form-field-container">
                             <label for="project-description" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
-                                <span class="material-icons-outlined" style="margin-right: 5px;"> sort</span>
+                                <span class="material-icons-outlined" style="margin-right: 5px;">sort</span>
                                 Description
                             </label>
                             <textarea name="description" id="project-description" cols="30" rows="5" placeholder="Enter Project Description"></textarea>
@@ -53,7 +52,7 @@
                         <!-- Project role selection -->
                         <div class="form-field-container">
                             <label for="project-role" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
-                                <span class="material-icons-outlined" style="margin-right: 5px;"> person</span>
+                                <span class="material-icons-outlined" style="margin-right: 5px;">person</span>
                                 Role
                             </label>
                             <select name="userRole" id="project-role">
@@ -66,7 +65,7 @@
                         <!-- Project status selection -->
                         <div class="form-field-container">
                             <label for="project-status" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
-                                <span class="material-icons-outlined" style="margin-right: 5px;"> question_mark</span>
+                                <span class="material-icons-outlined" style="margin-right: 5px;">question_mark</span>
                                 Status
                             </label>
                             <select name="status" id="project-status">
@@ -84,7 +83,25 @@
                             </label>
                             <input name="finishDate" id="finish-date" type="date" style="color: white; background-color: var(--background-200); padding: 15px; border-radius: 8px; border: none; font-size: var(--font-base);">
                         </div>
-                       
+
+                        <!-- Cost input -->
+                        <div class="form-field-container">
+                            <label for="project-cost" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;">attach_money</span>
+                                Cost
+                            </label>
+                            <input name="cost" id="project-cost" type="number" placeholder="Enter Project Cost" style="padding-left: 30px;">
+                        </div>
+
+                        <!-- Progress input -->
+                        <div class="form-field-container">
+                            <label for="project-progress" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                                <span class="material-icons-outlined" style="margin-right: 5px;">trending_up</span>
+                                Progress
+                            </label>
+                            <input name="progress" id="project-progress" type="number" placeholder="Enter Project Progress" style="padding-left: 30px;" min="0" max="100">
+                        </div>
+
                         <!-- Form action buttons -->
                         <div style="text-align: right">
                             <button type="button" 
@@ -108,10 +125,9 @@
                 </div>
             </header>
 
-             <!-- Projects list -->
-             <div id="projects-list">
-                
-                <!-- Project Card 1 -->
+            <!-- Projects list -->
+            <div id="projects-list">
+                <!-- Project Cards (example) -->
                 <div class="project-card">
                     <div class="card-header">
                         <p style="background-color: #ca8134; padding: 10px; border-radius: 8px;">PC1</p>
@@ -139,209 +155,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Project Card 2 -->
-                <div class="project-card">
-                    <div class="card-header">
-                        <p style="background-color: #8a2be2; padding: 10px; border-radius: 8px;">PC2</p>
-                        <div>
-                            <h5>Project 2</h5>
-                            <p>Project 2 Description...</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-property">
-                            <p style="color: #969696;">Status</p>
-                            <p>Pending</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Role</p>
-                            <p>Engineer</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Cost</p>
-                            <p>$2,500,000</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Progress</p>
-                            <p>20%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="project-card">
-                    <div class="card-header">
-                        <p style="background-color: #32cd32; padding: 10px; border-radius: 8px;">PC3</p>
-                        <div>
-                            <h5>Project 3</h5>
-                            <p>Project 3 Description...</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-property">
-                            <p style="color: #969696;">Status</p>
-                            <p>Finished</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Role</p>
-                            <p>Developer</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Cost</p>
-                            <p>$3,000,000</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Progress</p>
-                            <p>100%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 4 -->
-                <div class="project-card">
-                    <div class="card-header">
-                        <p style="background-color: #ff4500; padding: 10px; border-radius: 8px;">PC4</p>
-                        <div>
-                            <h5>Project 4</h5>
-                            <p>Project 4 Description...</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-property">
-                            <p style="color: #969696;">Status</p>
-                            <p>In Progress</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Role</p>
-                            <p>Architect</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Cost</p>
-                            <p>$1,200,000</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Progress</p>
-                            <p>40%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 5 -->
-                <div class="project-card">
-                    <div class="card-header">
-                        <p style="background-color: #1e90ff; padding: 10px; border-radius: 8px;">PC5</p>
-                        <div>
-                            <h5>Project 5</h5>
-                            <p>Project 5 Description...</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-property">
-                            <p style="color: #969696;">Status</p>
-                            <p>On Hold</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Role</p>
-                            <p>Engineer</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Cost</p>
-                            <p>$500,000</p>
-                        </div>
-                        <div class="card-property">
-                            <p style="color: #969696;">Progress</p>
-                            <p>10%</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Add additional project cards as needed -->
             </div>  
         </div>     
-        <!-- Project details section -->
-        <div class="page" id="project-details">
-            <!-- LEFT-Project Details -->
-            <header>
-                <div>                    
-                    <h2>Hospital Center</h2>
-                    <p style="color:#969696">Community Hospital location</p>
-                </div>
-            </header>
-            <div class="main-page-content">
-                <div style="display: flex; flex-direction: column; row-gap: 20px;">
-                    <!-- DashboardCard -->                  
-                    <div class="dashboard-card" style="padding: 30px 0;">
-                        <!-- 1stRow -->
-                        <div style="display: flex; justify-content: space-between; padding: 30px;">
-                            <p style="font-size: 24px; color: white; background-color: darkorange; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px; padding: 10px; cursor: pointer; display: inline-block;">H</p>
-                            <button class="btn-secondary">
-                                <p> Click Here </p>
-                            </button>
-                        </div>
-                        <!-- 2ndRow -->
-                        <div style="padding: 30px;">
-                            <h2> Hospital Center </h2>
-                            <p> Community hospital located at downtown </p>
-                        </div>
-                        <!-- Fields -->
-                        <div style="display: flex; column-gap: 30px; padding: 30px;">
-                            <div>
-                                <p style="color: #969696; font-size: var(--font-medium);"> Status </p>
-                                <p> Active </p>
-                            </div>
-                            <div>
-                                <p style="color: #969696; font-size: var(--font-medium);"> Cost</p>
-                                <p> $2,542,000 </p>
-                            </div>
-                            <div>
-                                <p style="color: #969696; font-size: var(--font-medium);"> Role </p>
-                                <p> Engineer</p>
-                            </div>
-                            <div>
-                                <p style="color: #969696; font-size: var(--font-medium);">Finish Date </p>
-                                <p> 2023-05-01 </p>
-                            </div>
-                        </div>
-                        <!-- Progress Bar -->
-                        <div style="margin-top: 20px; background-color: var(--background-100); border-radius: 14px; padding: 30px; font-size: 14px;">
-                            <div id="myProgress" style="width: 80%; height: 40px; background-color: #2ecc71; border-radius: 10px; color: #ecf0f1; line-height: 40px; text-align: center;">
-                                80%
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ToDoList -->
-                    <div class="dashboard-card">
-                        <!-- SearchBar -->
-                        <div style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;">
-                            <h4>To-Do</h4> 
-                            <div style="display: flex; align-items: center;">
-                                <div style="display: flex; align-items: center;">
-                                    <span class="material-icons-outlined">search</span>
-                                    <input type="text" placeholder="Search To-Do by name">
-                                </div>  
-                                <span class="material-icons-outlined">add</span>
-                            </div>
-                        </div>
-                        <!-- ToDoListItem -->
-                        <div style="display: flex; flex-direction: column; justify-content: space-around;">
-                            <div class="todo-item" style="color: white; font-family: Arial, sans-serif;">
-                                <div style="display: flex; justify-content: space-around; align-items: center; padding: 25px;">
-                                    <span class="material-icons" style="border-radius: 10px; font-size: 24px; padding: 8px; background-color: var(--background-200)">
-                                        construction
-                                    </span>
-                                    <div style="flex-grow: 1; margin-left: 16px;">
-                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
-                                    </div>
-                                    <p style="margin: 0; font-size: 12px;">Fri, 20 Sep</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                <!-- RIGHT-Viewer container -->
-                <div id="viewer-container" class="dashboard-card">
-                </div> 
-            </div> 
-        </div> 
     </main>    
     <script type="module" src="./src/index.ts"></script>
 </body>

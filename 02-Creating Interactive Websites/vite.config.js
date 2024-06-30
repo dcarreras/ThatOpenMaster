@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Configuración aquí
+  server: {
+    open: true,
+  },
+  // Otras configuraciones
 });
