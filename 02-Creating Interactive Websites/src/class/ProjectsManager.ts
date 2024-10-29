@@ -9,10 +9,29 @@ export class ProjectsManager{
     }
 
     newProject(data: IProject) {
-        const project = new Project(data)
-        this.ui.append(project.ui)
-        this.list.push(project)
-        return project
+        try {
+            this.validateProjectData(data); // Validamos los datos del proyecto
+            
+            const project = new Project(data);
+            this.list.push(project);
+            this.ui.append(project.ui);
+            return project;
+        } catch (error) {
+            console.error("Error al crear el proyecto:", error.message); // Manejo del error
+            alert(`Error: ${error.message}`); // Muestra el mensaje de error al usuario
+            throw error; // Vuelve a lanzar el error para que pueda ser manejado en otro lugar si es necesario
+        }
+    }
+    
+    //Manejo de errores con Try Catch on un Metodo especifico.
+    private validateProjectData(data: IProject) {
+        if (!data.name || data.name.trim() === "") {
+            throw new Error("El nombre del proyecto no puede estar vacío."); // Lanzamos un error si el nombre está vacío
+        }
+        
+        if (this.checkProjectNameExists(data.name)) {
+            throw new Error(`El nombre del proyecto "${data.name}" ya está en uso.`); // Lanzamos un error si el nombre ya existe
+        }
     }
 
     getProject(id: string) {
@@ -22,10 +41,16 @@ export class ProjectsManager{
         return project || null; // Devuelve el proyecto encontrado o null si no se encuentra
     }
 
-    getProjectByName(name:String){
-        const project = this.list.find((project)=> project.name === name); // Buscamos el proyecto por nombre
-        return project || null; // Devuelve el proyecto encontrado o null si no se encuentra
+    getProjectNames(): string[] {
+        return this.list.map(project => project.name);
     }
+
+    
+    checkProjectNameExists(name: string): boolean {
+        return this.getProjectNames().includes(name);
+    }
+
+    
 
     deleteProject(id: string ){
         const project = this.getProject(id)
