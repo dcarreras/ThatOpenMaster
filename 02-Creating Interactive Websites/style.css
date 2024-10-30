@@ -296,6 +296,31 @@ input:focus, textarea:focus, select:focus {
     background-color: var(--primary);
 }
 
+/* Estilos para el Error popup */
+.error-content {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.error-message {
+    color: white;
+}
+
+.error-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.error-button:hover {
+    background-color: #777;
+}
+
 
 
 

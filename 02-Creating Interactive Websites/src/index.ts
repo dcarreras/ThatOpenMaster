@@ -1,6 +1,7 @@
 import { Project, IProject, UserRole, ProjectStatus } from "./class/Project";
 import { ProjectsManager } from "./class/ProjectsManager";
 
+// Function to show a modal
 function showModal(id: string) {
   const modal = document.getElementById(id);
   if (modal && modal instanceof HTMLDialogElement) {
@@ -10,6 +11,7 @@ function showModal(id: string) {
   }
 }
 
+// Function to close a modal
 function closeModal(id: string) {
   const modal = document.getElementById(id);
   if (modal && modal instanceof HTMLDialogElement) {
@@ -19,25 +21,24 @@ function closeModal(id: string) {
   }
 }
 
-// Nueva función para alternar la visibilidad del modal
+// New function to toggle the visibility of a modal
 function toggleModal(id: string) {
   const modal = document.getElementById(id) as HTMLDialogElement;
   if (modal) {
-    if (modal.open) { // Verifica si el modal está abierto
-      modal.close(); // Cierra el modal
+    if (modal.open) { // Check if the modal is open
+      modal.close(); // Close the modal
     } else {
-      modal.showModal(); // Abre el modal
+      modal.showModal(); // Open the modal
     }
   } else {
     console.warn("The provided modal wasn't found. ID:", id);
   }
 }
 
-
 const projectListUI = document.getElementById("projects-list") as HTMLElement;
 const projectsManager = new ProjectsManager(projectListUI);
 
-//This document object is provided by the browser, asnd it's main purpose to help us 
+// This document object is provided by the browser, and its main purpose is to help us 
 const newProjectBtn = document.getElementById("new-project-btn");
 if (newProjectBtn) {
   newProjectBtn.addEventListener("click", () => {
@@ -48,6 +49,13 @@ if (newProjectBtn) {
 }
 
 const projectForm = document.getElementById('new-project-form') as HTMLFormElement;
+
+const errorPopup = document.getElementById("error-popup") as HTMLDialogElement;
+const errorMessage = document.getElementById("error-message") as HTMLElement;
+const nextErrorBtn = document.getElementById("next-error-btn") as HTMLButtonElement;
+const closeErrorBtn = document.getElementById("close-error-btn") as HTMLButtonElement;
+
+let errorStep = 0; // Variable para rastrear el paso actual del error
 
 if (projectForm) {
   projectForm.addEventListener("submit", (e) => {
@@ -62,26 +70,55 @@ if (projectForm) {
       cost: parseFloat(formData.get("cost") as string),
       progress: parseInt(formData.get("progress") as string)
     };
-    const project = projectsManager.newProject(projectData);
-    projectForm.reset();
-    closeModal("new-project-modal");
+    
+    try {
+      const project = projectsManager.newProject(projectData);
+      projectForm.reset();
+      closeModal("new-project-modal");
+    } catch (error) {
+      console.error(error); // Mostrar el error en la consola
+      errorMessage.textContent = error.message; // Mostrar el mensaje de error en el popup
+      errorPopup.showModal(); // Mostrar el popup
+      errorStep = 0; // Reiniciar el paso de error
+    }
   });
 
+  // Manejar el botón "Next"
+  if (nextErrorBtn) {
+    nextErrorBtn.addEventListener("click", () => {
+      errorStep++;
+      switch (errorStep) {
+        case 1:
+          errorMessage.textContent = "Please check the project name it's not repeated"; // Mensaje para el paso 1
+          break;
+        default:
+          errorPopup.close(); // Cerrar el popup si no hay más pasos
+          break;
+      }
+    });
+  }
+
+  // Manejar el botón "Close"
+  if (closeErrorBtn) {
+    closeErrorBtn.addEventListener("click", () => {
+      errorPopup.close(); // Cerrar el popup cuando se hace clic en cerrar
+    });
+  }
 } else {
   console.warn("new-project-form was not found. Please check the id");
 }
 
-// Agregar un evento click para cancelar el boton 
+// Add a click event to cancel the button 
 const cancelBtn = document.getElementById("cancel-btn");
 if(cancelBtn){
   cancelBtn.addEventListener("click",() =>{
-    closeModal("new-project-modal"); // cierra el modal al hacer click en cancelar
+    closeModal("new-project-modal"); // Close the modal when clicking cancel
   });
 }else{
   console.warn("Cancel Button was not found")
 }
 
-// Crear una tarjeta de proyecto predeterminada programáticamente
+// Create a default project card programmatically
 const defaultProjectData: IProject = {
   name: "Default Project",
   description: "This is a default project",
@@ -94,7 +131,7 @@ const defaultProjectData: IProject = {
 
 const defaultProject = projectsManager.newProject(defaultProjectData);
 
-// Función para renderizar la tarjeta del proyecto
+// Function to render the project card
 function renderProjectCard(project: IProject) {
   const projectCard = document.createElement("div");
   projectCard.className = "project-card";
@@ -127,13 +164,13 @@ function renderProjectCard(project: IProject) {
     </div>
   `;
 
-// Agregar la tarjeta al contenedor de proyectos
+// Add the card to the projects list container
 const projectsList = document.getElementById("projects-list");
 if (projectsList) {
   projectsList.appendChild(projectCard);
 }
 
-// Llamar a la función para renderizar el proyecto predeterminado
+// Call the function to render the default project
 renderProjectCard(defaultProject);
 
 }

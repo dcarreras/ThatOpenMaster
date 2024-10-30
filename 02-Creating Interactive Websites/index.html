@@ -26,7 +26,7 @@
         <!-- Projects page (initially hidden) -->
         <div class="page" id="projects-page" style="display:block"> 
             <!-- New project modal -->
-            <dialog id="new-project-modal">
+            <dialog id="new-project-modal"> 
                 <form id="new-project-form">         
                     <h2> New Project</h2>
                     <div class="input-list">
@@ -116,7 +116,14 @@
                     </div>
                 </form>
             </dialog>
-            
+
+            <!-- Error popup -->
+            <dialog id="error-popup"> 
+                <h2 style="color: white;">Error</h2>
+                <p class="error-message" id="error-message">An error occurred.</p>
+                <button class="error-button" id="close-error-btn">Close</button>
+            </dialog>
+
             <!-- Projects header -->
             <header>
                 <h2> Projects</h2>

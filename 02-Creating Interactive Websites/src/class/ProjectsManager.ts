@@ -9,30 +9,19 @@ export class ProjectsManager{
     }
 
     newProject(data: IProject) {
-        try {
-            this.validateProjectData(data); // Validamos los datos del proyecto
-            
-            const project = new Project(data);
-            this.list.push(project);
-            this.ui.append(project.ui);
-            return project;
-        } catch (error) {
-            console.error("Error al crear el proyecto:", error.message); // Manejo del error
-            alert(`Error: ${error.message}`); // Muestra el mensaje de error al usuario
-            throw error; // Vuelve a lanzar el error para que pueda ser manejado en otro lugar si es necesario
+        const projectNames = this.list.map((project) => {
+            return project.name
+        })
+        const nameInUse = projectNames.includes(data.name)
+        if (nameInUse) {
+            throw new Error(`A project with the name "${data.name}" already exists`)
         }
+        const project = new Project(data)
+        this.ui.append(project.ui)
+        this.list.push(project)
+        return project
     }
-    
-    //Manejo de errores con Try Catch on un Metodo especifico.
-    private validateProjectData(data: IProject) {
-        if (!data.name || data.name.trim() === "") {
-            throw new Error("El nombre del proyecto no puede estar vacío."); // Lanzamos un error si el nombre está vacío
-        }
-        
-        if (this.checkProjectNameExists(data.name)) {
-            throw new Error(`El nombre del proyecto "${data.name}" ya está en uso.`); // Lanzamos un error si el nombre ya existe
-        }
-    }
+   
 
     getProject(id: string) {
         const project = this.list.find((project) => {
