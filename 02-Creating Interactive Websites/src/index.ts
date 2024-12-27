@@ -1,7 +1,8 @@
+//Importacion de las clases y interfaces necesarias
 import { Project, IProject, UserRole, ProjectStatus } from "./class/Project";
 import { ProjectsManager } from "./class/ProjectsManager";
 
-// Function to show a modal
+//Funcion para mostrar un modal
 function showModal(id: string) {
   const modal = document.getElementById(id);
   if (modal && modal instanceof HTMLDialogElement) {
@@ -11,7 +12,7 @@ function showModal(id: string) {
   }
 }
 
-// Function to close a modal
+
 function closeModal(id: string) {
   const modal = document.getElementById(id);
   if (modal && modal instanceof HTMLDialogElement) {
@@ -21,7 +22,7 @@ function closeModal(id: string) {
   }
 }
 
-// New function to toggle the visibility of a modal
+//Funcion para alternar la visibilidad de un modal
 function toggleModal(id: string) {
   const modal = document.getElementById(id) as HTMLDialogElement;
   if (modal) {
@@ -35,11 +36,15 @@ function toggleModal(id: string) {
   }
 }
 
+console.log("Script loaded");
+
+//Elemento para contener la lista de proyectos
 const projectListUI = document.getElementById("projects-list") as HTMLElement;
+//Instancia de la clase ProjectsManager
 const projectsManager = new ProjectsManager(projectListUI);
 
-// This document object is provided by the browser, and its main purpose is to help us 
 const newProjectBtn = document.getElementById("new-project-btn");
+//Evento para alternar la visibilidad del modal de nuevo proyecto
 if (newProjectBtn) {
   newProjectBtn.addEventListener("click", () => {
     toggleModal("new-project-modal");
@@ -47,6 +52,8 @@ if (newProjectBtn) {
 } else {
   console.warn("new-project-btn was not found");
 }
+
+
 
 const projectForm = document.getElementById('new-project-form') as HTMLFormElement;
 
@@ -57,6 +64,7 @@ const closeErrorBtn = document.getElementById("close-error-btn") as HTMLButtonEl
 
 let errorStep = 0; // Variable para rastrear el paso actual del error
 
+//Evento para manejar el envio del formulario de nuevo proyecto
 if (projectForm) {
   projectForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -67,10 +75,18 @@ if (projectForm) {
       status: formData.get("status") as ProjectStatus,
       userRole: formData.get("userRole") as UserRole,
       finishDate: new Date(formData.get("finishDate") as string),
-      cost: parseFloat(formData.get("cost") as string),
-      progress: parseInt(formData.get("progress") as string)
+      cost: parseFloat(formData.get("cost") as string) || 0,
+      progress: parseInt(formData.get("progress") as string) || 0
     };
     
+    // Validar que los campos numéricos no sean NaN
+    if (isNaN(projectData.cost) || isNaN(projectData.progress)) {
+      errorMessage.textContent = "Please enter valid numbers for cost and progress.";
+      errorPopup.showModal();
+      return;
+    }
+
+    //Intentar crear un nuevo proyecto
     try {
       const project = projectsManager.newProject(projectData);
       projectForm.reset();
@@ -108,30 +124,33 @@ if (projectForm) {
   console.warn("new-project-form was not found. Please check the id");
 }
 
-// Add a click event to cancel the button 
+//Elemento para contener el boton de cancelar
 const cancelBtn = document.getElementById("cancel-btn");
+//Evento para cerrar el modal de nuevo proyecto
 if(cancelBtn){
   cancelBtn.addEventListener("click",() =>{
-    closeModal("new-project-modal"); // Close the modal when clicking cancel
+    closeModal("new-project-modal"); // Cerrar el modal cuando se hace clic en cancelar
   });
 }else{
   console.warn("Cancel Button was not found")
 }
 
-// Create a default project card programmatically
+//Crear un proyecto por defecto
 const defaultProjectData: IProject = {
   name: "Default Project",
   description: "This is a default project",
-  status: "pending", // Corrected to use the string value instead of the type
-  userRole: "architect", // Corrected to use the string value instead of the type
+  status: "pending", 
+  userRole: "architect", 
   finishDate: new Date(),
   cost: 10000,
   progress: 0
 };
 
+
+//Crear un proyecto por defecto
 const defaultProject = projectsManager.newProject(defaultProjectData);
 
-// Function to render the project card
+//Funcion para renderizar la tarjeta de proyecto
 function renderProjectCard(project: IProject) {
   const projectCard = document.createElement("div");
   projectCard.className = "project-card";
@@ -173,6 +192,45 @@ if (projectsList) {
 // Call the function to render the default project
 renderProjectCard(defaultProject);
 
+
+//Elemento para contener el boton de exportar
+const exportProjectsBtn = document.getElementById('export-projects-btn') as HTMLButtonElement;
+
+// Verificar si el botón existe
+if (exportProjectsBtn) {
+    console.log('Export button found'); // Log para verificar que el botón fue encontrado
+    exportProjectsBtn.addEventListener('click', () => {
+        // Deshabilitar el botón para evitar múltiples clics
+        exportProjectsBtn.disabled = true;
+        // Pedir al usuario un nombre de archivo
+        const filename = prompt("Enter the filename for the export:", "projects");
+
+        if (filename) {
+            try {
+                console.log('Exportar proyectos'); // Log para verificar que el evento de clic se dispara
+                projectsManager.exportToJSON(filename); // Llamada al método exportToJSON
+                alert("Projects exported successfully!"); // Confirmación de éxito
+            } catch (error) {
+                alert("An error occurred during export. Please try again."); // Mensaje de error al usuario
+            }
+        }
+
+        // Rehabilitar el botón después de la exportación
+        exportProjectsBtn.disabled = false;
+    });
+} else {
+    console.warn("Export button was not found");
 }
 
+// ... existing code ...
+const testButton = document.getElementById('test-button') as HTMLButtonElement;
 
+// Añade un evento de clic para verificar que el botón funciona
+testButton.addEventListener('click', () => {
+    console.log("Test button clicked!");
+});
+
+
+
+
+}

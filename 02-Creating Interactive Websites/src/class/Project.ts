@@ -1,8 +1,11 @@
+//Importacion de uuid para generar un id unico para cada proyecto
 import { v4 as uuidv4} from 'uuid' 
 
+//Tipos para representar el estado y el rol de un usuario
 export type ProjectStatus = "pending" | "active" | "finished";
 export type UserRole = "architect" | "engineer" | "developer";
 
+//Interface para representar un proyecto
 export interface IProject {
     name: string;
     description: string;
@@ -13,8 +16,9 @@ export interface IProject {
     progress: number;
 }
 
+//Clase para representar un proyecto
 export class Project implements IProject {
-    //To satify IProject
+    //Propiedades para satisfacer la interface IProject
     name: string;
     description: string;
     status: ProjectStatus;
@@ -38,6 +42,7 @@ export class Project implements IProject {
         this.setUI();
     }
 
+    //Metodo para establecer la interfaz de usuario del proyecto (DOM)
     setUI() {  
         if(this.ui){return}
         this.ui = document.createElement("div");

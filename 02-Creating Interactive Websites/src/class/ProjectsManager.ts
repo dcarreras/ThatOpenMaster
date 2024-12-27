@@ -1,13 +1,16 @@
 import { IProject, Project }   from "./Project"
 
 export class ProjectsManager{
+    //Lista de proyectos
     list: Project[] = []
     ui : HTMLElement
 
+    //Constructor de la clase
     constructor(container: HTMLElement){
         this.ui = container
     }
 
+    //Metodo para crear un nuevo proyecto
     newProject(data: IProject) {
         const projectNames = this.list.map((project) => {
             return project.name
@@ -22,25 +25,25 @@ export class ProjectsManager{
         return project
     }
    
-
+    //Metodo para obtener un proyecto por su id
     getProject(id: string) {
         const project = this.list.find((project) => {
-            project.id === id
-        })
+            return project.id === id;
+        });
         return project || null; // Devuelve el proyecto encontrado o null si no se encuentra
     }
 
+    //Metodo para obtener los nombres de los proyectos
     getProjectNames(): string[] {
         return this.list.map(project => project.name);
     }
 
-    
+    //Metodo para verificar si un nombre de proyecto ya existe
     checkProjectNameExists(name: string): boolean {
         return this.getProjectNames().includes(name);
     }
 
-    
-
+    //Metodo para eliminar un proyecto por su id
     deleteProject(id: string ){
         const project = this.getProject(id)
         if (!project){ return}  // Si no se encuentra el proyecto, salimos del método
@@ -53,13 +56,52 @@ export class ProjectsManager{
 
     }
 
-    //Funcion para calcular el costo de todos los proyectos usando reduce
+    //Metodo para calcular el costo total de los proyectos
     calculateTotalCost(): number {
         return this.list.reduce((total, project) => total + project.cost, 0);
     }
 
-    exportToJSON(){}
+    //Metodo para exportar la lista de proyectos a un archivo JSON
+    exportToJSON(filename: string = "projects") {
+        try {
+            console.log("Current projects list:", this.list); // Verifica la lista de proyectos
+            const jsonString = JSON.stringify(this.list, null, 2); // Convierte la lista de proyectos a una cadena JSON
+            const blob = new Blob([jsonString], { type: "application/json" }); // Crea un blob con la cadena JSON
+            const url = URL.createObjectURL(blob); // Crea una URL para el blob
+            const a = document.createElement("a"); // Crea un nuevo elemento de anclaje
+            a.href = url; // Establece la URL del blob en el elemento de anclaje
+            a.download = filename; // Establece el nombre del archivo en el elemento de anclaje
+            a.click(); // Simula un clic en el elemento de anclaje
+            URL.revokeObjectURL(url); // Revoca la URL del blob
+        } catch (error) {
+            console.error("Error al exportar la lista de proyectos a JSON:", error);
+        }
+    }
 
-    improtToJSON(){}
+    //Metodo para importar la lista de proyectos desde un archivo JSON
+    importFromJSON(file: File) {
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            try {
+                const json = event.target?.result as string;
+                const projectsData: IProject[] = JSON.parse(json);
+                
+                projectsData.forEach(data => {
+                    if (!this.checkProjectNameExists(data.name)) {
+                        const project = new Project(data);
+                        this.list.push(project);
+                        this.ui.append(project.ui);
+                    } else {
+                        console.warn(`El proyecto con el nombre "${data.name}" ya existe y no se importará.`);
+                    }
+                });
+            } catch (error) {
+                console.error("Error al importar proyectos desde JSON:", error);
+            }
+        };
+
+        reader.readAsText(file);
+    }
 
 }

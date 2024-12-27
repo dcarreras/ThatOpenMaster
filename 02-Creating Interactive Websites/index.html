@@ -6,7 +6,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    
 </head>
 <body>
     <!-- Sidebar section -->
@@ -127,7 +130,10 @@
             <!-- Projects header -->
             <header>
                 <h2> Projects</h2>
-                <div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button id="import-projects-btn" class="material-symbols-outlined action-icon"> download </button>
+                    <button id="export-projects-btn" class="material-symbols-outlined action-icon"> upload </button>
+                    <button id="test-button">Test Button</button>
                     <button id="new-project-btn"> Add New Project </button>
                 </div>
             </header>
