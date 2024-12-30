@@ -202,7 +202,7 @@ function renderProjectCard(project: IProject) {
     }
 }
 
-//Elemento para contener el boton de exportar
+//Elemento para contener el boton de EXPORTAR
 const exportProjectsBtn = document.getElementById('export-projects-btn') as HTMLButtonElement;
 
 // Verificar si el botón existe
@@ -231,7 +231,7 @@ if (exportProjectsBtn) {
     console.warn("Export button was not found");
 }
 
-//Elemento para contener el boton de importar
+//Elemento para contener el boton de IMPORTAR
 const importProjectsBtn = document.getElementById('import-projects-btn') as HTMLButtonElement;
 
 // Verificar si el botón existe

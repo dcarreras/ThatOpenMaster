@@ -31,11 +31,11 @@ export class Project implements IProject {
 
 
     constructor(data: IProject) {
-        for(const key in data){
-            if(this.hasOwnProperty(key)){   
+        for (const key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
                 this[key] = data[key];
             }
-        }	
+        }
         this.id = uuidv4();
         this.setUI();
     }

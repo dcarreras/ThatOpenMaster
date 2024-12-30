@@ -64,8 +64,14 @@ export class ProjectsManager{
     //Metodo para exportar la lista de proyectos a un archivo JSON
     exportToJSON(filename: string = "projects") {
         try {
-            console.log("Current projects list:", this.list); // Verifica la lista de proyectos
-            const jsonString = JSON.stringify(this.list, null, 2); // Convierte la lista de proyectos a una cadena JSON
+            function replacer(key, value) {
+                // Filtrando la propiedad 'ui'
+                if (key === "ui") {
+                    return undefined;
+                }
+                return value;
+            }
+            const jsonString = JSON.stringify(this.list, replacer, 2); // Convierte la lista de proyectos a una cadena JSON
             const blob = new Blob([jsonString], { type: "application/json" }); // Crea un blob con la cadena JSON
             const url = URL.createObjectURL(blob); // Crea una URL para el blob
             const a = document.createElement("a"); // Crea un nuevo elemento de anclaje
