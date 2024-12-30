@@ -134,7 +134,7 @@ if (cancelBtn) {
 
 //Crear un proyecto por defecto
 const defaultProjectData: IProject = {
-    name: "Default Project",
+    name: "PC-Default",
     description: "This is a default project",
     status: "pending", 
     userRole: "architect", 
@@ -143,8 +143,24 @@ const defaultProjectData: IProject = {
     progress: 0
 };
 
-//Crear un proyecto por defecto
-const defaultProject = projectsManager.newProject(defaultProjectData);
+//Crear y renderizar un proyecto por defecto solo si no existe
+function renderDefaultProject() {
+    console.log("Checking for existing default project...");
+
+    const allProjects = projectsManager.getAllProjects();
+    console.log("Current projects:", allProjects);
+
+    const existingProject = allProjects.find(project => project.name === defaultProjectData.name);
+    if (!existingProject) {
+        console.log("No existing default project found. Creating a new one.");
+        const defaultProject = projectsManager.newProject(defaultProjectData);
+        renderProjectCard(defaultProject);
+    } else {
+        console.warn("Default project already exists and will not be duplicated.");
+    }
+}
+
+renderDefaultProject();
 
 //Funcion para renderizar la tarjeta de proyecto
 function renderProjectCard(project: IProject) {
@@ -186,9 +202,6 @@ function renderProjectCard(project: IProject) {
     }
 }
 
-// Call the function to render the default project
-renderProjectCard(defaultProject);
-
 //Elemento para contener el boton de exportar
 const exportProjectsBtn = document.getElementById('export-projects-btn') as HTMLButtonElement;
 
@@ -218,4 +231,35 @@ if (exportProjectsBtn) {
     console.warn("Export button was not found");
 }
 
+//Elemento para contener el boton de importar
+const importProjectsBtn = document.getElementById('import-projects-btn') as HTMLButtonElement;
 
+// Verificar si el botón existe
+if (importProjectsBtn) {
+    console.log('Import button found'); // Log para verificar que el botón fue encontrado
+    importProjectsBtn.addEventListener('click', () => {
+        // Crear un input de tipo archivo para seleccionar el archivo JSON
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+
+        // Manejar el evento de cambio cuando se selecciona un archivo
+        input.onchange = (event: Event) => {
+            const file = (event.target as HTMLInputElement).files?.[0];
+            if (file) {
+                try {
+                    console.log('Importar proyectos'); // Log para verificar que el evento de clic se dispara
+                    projectsManager.importFromJSON(file); // Llamada al método importFromJSON
+                    alert("Projects imported successfully!"); // Confirmación de éxito
+                } catch (error) {
+                    alert("An error occurred during import. Please try again."); // Mensaje de error al usuario
+                }
+            }
+        };
+
+        // Simular un clic en el input de archivo
+        input.click();
+    });
+} else {
+    console.warn("Import button was not found");
+}

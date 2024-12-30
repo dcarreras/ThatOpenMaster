@@ -104,4 +104,9 @@ export class ProjectsManager{
         reader.readAsText(file);
     }
 
+    // Método para obtener todos los proyectos
+    getAllProjects(): IProject[] {
+        return this.list;
+    }
+
 }
