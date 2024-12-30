@@ -81,26 +81,21 @@ export class ProjectsManager{
     //Metodo para importar la lista de proyectos desde un archivo JSON
     importFromJSON(file: File) {
         const reader = new FileReader();
-        
         reader.onload = (event) => {
             try {
-                const json = event.target?.result as string;
-                const projectsData: IProject[] = JSON.parse(json);
-                
-                projectsData.forEach(data => {
-                    if (!this.checkProjectNameExists(data.name)) {
-                        const project = new Project(data);
-                        this.list.push(project);
-                        this.ui.append(project.ui);
-                    } else {
-                        console.warn(`El proyecto con el nombre "${data.name}" ya existe y no se importará.`);
+                const projects: IProject[] = JSON.parse(event.target?.result as string);
+                projects.forEach(project => {
+                    // Verificar si el proyecto ya existe
+                    if (this.getAllProjects().some(existingProject => existingProject.name === project.name)) {
+                        throw new Error(`Project with name "${project.name}" already exists.`);
                     }
+                    this.newProject(project);
                 });
             } catch (error) {
-                console.error("Error al importar proyectos desde JSON:", error);
+                console.error("Error importing projects:", error);
+                alert(error.message); // Mostrar el mensaje de error al usuario
             }
         };
-
         reader.readAsText(file);
     }
 
