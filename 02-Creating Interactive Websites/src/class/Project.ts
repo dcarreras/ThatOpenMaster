@@ -31,13 +31,11 @@ export class Project implements IProject {
 
 
     constructor(data: IProject) {
-        this.name = data.name;
-        this.description = data.description;
-        this.status = data.status;
-        this.userRole = data.userRole;
-        this.finishDate = data.finishDate;
-        this.cost = data.cost;
-        this.progress = data.progress;
+        for(const key in data){
+            if(this.hasOwnProperty(key)){   
+                this[key] = data[key];
+            }
+        }	
         this.id = uuidv4();
         this.setUI();
     }
