@@ -3,7 +3,7 @@ import { v4 as uuidv4} from 'uuid'
 
 //Tipos para representar el estado y el rol de un usuario
 export type ProjectStatus = "pending" | "active" | "finished";
-export type UserRole = "architect" | "engineer" | "developer";
+export type UserRole = "architect" | "structural engineer" | "mechanical engineer" | "electrical engineer" |"developer";
 
 //Interface para representar un proyecto
 export interface IProject {
