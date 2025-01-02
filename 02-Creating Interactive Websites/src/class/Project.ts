@@ -30,7 +30,9 @@ export class Project implements IProject {
     id: string;
 
 
+    // Constructor para inicializar un proyecto con los datos proporcionados
     constructor(data: IProject) {
+        // Iterar sobre los datos proporcionados y asignarlos a las propiedades correspondientes
         for (const key in data) {
             if (Object.prototype.hasOwnProperty.call(data, key)) {
                 this[key] = data[key];

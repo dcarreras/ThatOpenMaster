@@ -229,23 +229,12 @@ input:focus, textarea:focus, select:focus {
 
 /* Project Details Page */
 
-.dashboard-card {
-    background-color: var(--background-100);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    justify-content: space-between;
-    gap: 20px; /* This will create a 20px gap between flex items */
-    
-}
-
 #project-details > .main-page-content {
     display: grid;
     padding: 20px 40px;
     gap: 30px;
-    grid-template-columns:  475px 1fr;
-    height: 100%;   
+    grid-template-columns: 475px 1fr;
+    height: 100%;
     row-gap: 10px;
 }
 
@@ -254,13 +243,26 @@ input:focus, textarea:focus, select:focus {
     padding: 20px;
     text-align: left;
 }
+
 #project-details header h2 {
     margin: 0;
     color: #fff;
 }
+
 #project-details header p {
     color: #aaa;
 }
+
+.dashboard-card {
+    background-color: var(--background-100);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
 .main-page-content {
     
     padding: 0 20px;
@@ -358,6 +360,17 @@ input:focus, textarea:focus, select:focus {
 }
 .action-icon:hover {
     background-color: var(--primary); 
+}
+
+/* Progress Bar */
+#myProgress {
+    width: 80%;
+    height: 40px;
+    background-color: #2ecc71;
+    border-radius: 10px;
+    color: #ecf0f1;
+    line-height: 40px;
+    text-align: center;
 }
 
 

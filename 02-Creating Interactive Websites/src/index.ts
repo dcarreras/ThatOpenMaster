@@ -227,3 +227,31 @@ if (importProjectsBtn) {
 } else {
     console.warn("Import button was not found");
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const projectsPage = document.getElementById('projects-page');
+    const detailsPage = document.getElementById('project-details');
+    const projectsBtn = document.getElementById('projects-btn');
+
+    if (!projectsPage) {
+        console.error('Projects page not found');
+    }
+    if (!detailsPage) {
+        console.error('Details page not found');
+    }
+    if (!projectsBtn) {
+        console.error('Projects button not found');
+    }
+
+    if (!projectsPage || !detailsPage || !projectsBtn) {
+        return;
+    }
+
+    console.log('Button and pages found');
+
+    projectsBtn.addEventListener('click', () => {
+        console.log('Projects button clicked');
+        projectsPage.style.display = 'block';
+        detailsPage.style.display = 'none';
+    });
+});
