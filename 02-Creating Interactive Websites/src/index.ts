@@ -154,53 +154,17 @@ function renderDefaultProject() {
     if (!existingProject) {
         console.log("No existing default project found. Creating a new one.");
         const defaultProject = projectsManager.newProject(defaultProjectData);
-        renderProjectCard(defaultProject);
+        // Renderizar el proyecto usando su propio método setUI
+        const projectsList = document.getElementById("projects-list");
+        if (projectsList) {
+            projectsList.appendChild(defaultProject.ui);
+        }
     } else {
         console.warn("Default project already exists and will not be duplicated.");
     }
 }
 
 renderDefaultProject();
-
-//Funcion para renderizar la tarjeta de proyecto
-function renderProjectCard(project: IProject) {
-    const projectCard = document.createElement("div");
-    projectCard.className = "project-card";
-    
-    projectCard.innerHTML = `
-        <div class="card-header">
-            <p style="background-color: #ca8134; padding: 10px; border-radius: 8px;">${project.name}</p>
-            <div>
-                <h5>${project.name}</h5>
-                <p>${project.description}</p>
-            </div>
-        </div>
-        <div class="card-content">
-            <div class="card-property">
-                <p style="color: #969696;">Status</p>
-                <p>${project.status}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Role</p>
-                <p>${project.userRole}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Cost</p>
-                <p>$${project.cost}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Progress</p>
-                <p>${project.progress}%</p>
-            </div>
-        </div>
-    `;
-
-    // Add the card to the projects list container
-    const projectsList = document.getElementById("projects-list");
-    if (projectsList) {
-        projectsList.appendChild(projectCard);
-    }
-}
 
 //Elemento para contener el boton de EXPORTAR
 const exportProjectsBtn = document.getElementById('export-projects-btn') as HTMLButtonElement;
