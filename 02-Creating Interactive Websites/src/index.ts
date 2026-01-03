@@ -173,6 +173,7 @@ if (cancelBtn) {
 
 const editProjectBtn = document.getElementById("edit-project-btn") as HTMLButtonElement;
 const detailsPage = document.getElementById("project-details") as HTMLElement;
+const addTodoBtn = document.getElementById("add-todo-btn") as HTMLElement;
 
 if (editProjectBtn) {
     editProjectBtn.addEventListener("click", () => {
@@ -229,6 +230,40 @@ if (editProjectBtn) {
     });
 } else {
     console.warn("Edit Project button was not found");
+}
+
+if (addTodoBtn) {
+    addTodoBtn.addEventListener("click", () => {
+        const projectId = detailsPage?.dataset.projectId;
+        if (!projectId) {
+            errorMessage.textContent = "Select a project before adding a To-Do.";
+            errorPopup.showModal();
+            return;
+        }
+
+        const title = prompt("Enter the To-Do name:");
+        const trimmedTitle = title ? title.trim() : "";
+        if (!trimmedTitle) {
+            return;
+        }
+
+        const dueDateInput = prompt("Enter a due date (YYYY-MM-DD) or leave blank:");
+        const trimmedDate = dueDateInput ? dueDateInput.trim() : "";
+        const todoData = {
+            title: trimmedTitle,
+            dueDate: trimmedDate ? trimmedDate : undefined
+        };
+
+        try {
+            projectsManager.addTodo(projectId, todoData);
+        } catch (error) {
+            console.error(error);
+            errorMessage.textContent = error.message;
+            errorPopup.showModal();
+        }
+    });
+} else {
+    console.warn("Add To-Do button was not found");
 }
 
 //Crear un proyecto por defecto

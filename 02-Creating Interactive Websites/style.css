@@ -309,6 +309,35 @@ input:focus, textarea:focus, select:focus {
     background-color: var(--primary);
 }
 
+.todo-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+}
+
+.todo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: var(--background-200);
+    flex-shrink: 0;
+}
+
+.todo-text {
+    flex: 1;
+}
+
+.todo-date {
+    margin: 0;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
 /* Estilos para el Error popup */
 .error-popup {
     position: fixed;

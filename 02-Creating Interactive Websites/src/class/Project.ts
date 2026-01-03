@@ -5,6 +5,11 @@ import { v4 as uuidv4} from 'uuid'
 export type ProjectStatus = "pending" | "active" | "finished";
 export type UserRole = "architect" | "structural engineer" | "mechanical engineer" | "electrical engineer" |"developer";
 
+export interface ITodo {
+    title: string;
+    dueDate?: string;
+}
+
 //Interface para representar un proyecto
 export interface IProject {
     name: string;
@@ -14,6 +19,7 @@ export interface IProject {
     finishDate: Date;
     cost: number;
     progress: number;
+    todos?: ITodo[];
 }
 
 //Clase para representar un proyecto
@@ -26,6 +32,7 @@ export class Project implements IProject {
     finishDate: Date;
     cost: number;
     progress: number;
+    todos: ITodo[];
     ui: HTMLDivElement;
     id: string;
     iconColor: string;
@@ -63,6 +70,7 @@ export class Project implements IProject {
                 this[key] = data[key];
             }
         }
+        this.todos = data.todos ? [...data.todos] : [];
         this.id = uuidv4();
         const initials = this.getInitials();
         this.iconColor = Project.getColorForInitials(initials);
@@ -83,6 +91,23 @@ export class Project implements IProject {
 
     updateIconColor() {
         this.iconColor = Project.getColorForInitials(this.getInitials());
+    }
+
+    private static getTodayString(): string {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    }
+
+    addTodo(todo: ITodo) {
+        const dueDateValue = todo.dueDate ? todo.dueDate.trim() : "";
+        const dueDate = dueDateValue ? dueDateValue : Project.getTodayString();
+        this.todos.push({
+            title: todo.title,
+            dueDate
+        });
     }
 
     private getCardHTML(): string {

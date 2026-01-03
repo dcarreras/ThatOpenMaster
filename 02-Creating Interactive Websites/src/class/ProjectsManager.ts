@@ -1,4 +1,4 @@
-import { IProject, Project }   from "./Project"
+import { IProject, Project, ITodo }   from "./Project"
 
 export class ProjectsManager{
     //Lista de proyectos
@@ -67,10 +67,23 @@ export class ProjectsManager{
         project.finishDate = data.finishDate;
         project.cost = data.cost;
         project.progress = data.progress;
+        if (data.todos !== undefined) {
+            project.todos = [...data.todos];
+        }
         project.updateIconColor();
         project.updateUI();
         this.updateProjectDetails(project);
 
+        return project;
+    }
+
+    addTodo(projectId: string, todo: ITodo) {
+        const project = this.getProject(projectId);
+        if (!project) {
+            throw new Error("Project not found.");
+        }
+        project.addTodo(todo);
+        this.updateProjectDetails(project);
         return project;
     }
 
@@ -138,6 +151,36 @@ export class ProjectsManager{
             progressBar.textContent = `${clampedProgress}%`;
             progressBar.style.width = `${clampedProgress}%`;
         }
+
+        this.renderProjectTodos(project);
+    }
+
+    private renderProjectTodos(project: Project) {
+        const list = document.getElementById("todo-list");
+        if (!list) {
+            return;
+        }
+
+        list.innerHTML = "";
+        const todos = project.todos ?? [];
+        todos.forEach((todo) => {
+            const item = document.createElement("div");
+            item.className = "todo-item";
+            item.style.color = "white";
+            const dateLabel = todo.dueDate ? todo.dueDate : "No date";
+            item.innerHTML = `
+                <div class="todo-row">
+                    <span class="material-icons-outlined todo-icon">
+                        construction
+                    </span>
+                    <div class="todo-text">
+                        <p style="margin: 0;">${todo.title}</p>
+                    </div>
+                    <p class="todo-date">${dateLabel}</p>
+                </div>
+            `;
+            list.appendChild(item);
+        });
     }
    
     //Metodo para obtener un proyecto por su id
