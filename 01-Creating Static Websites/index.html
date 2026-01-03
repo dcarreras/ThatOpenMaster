@@ -84,25 +84,25 @@
                         <input id="project-progress" name="progress" type="number" placeholder="Enter project progress" min="0" max="100">
                     </div>
                     <div class="form-actions">
-                        <button class="btn-ghost" type="button">Cancel</button>
+                        <button id="new-project-cancel" class="btn-ghost" type="button">Cancel</button>
                         <button class="btn-success" type="submit">Accept</button>
                     </div>
                 </div>
             </form>
         </dialog>
 
-        <div class="page" id="projects-page" style="display: none;">
+        <div class="page" id="projects-page">
             <header>
                 <h2>Projects</h2>
                 <div class="header-actions">
                     <button class="material-symbols-outlined action-icon" type="button" aria-label="Import projects">download</button>
                     <button class="material-symbols-outlined action-icon" type="button" aria-label="Export projects">upload</button>
-                    <button id="new-project-btn" type="button" aria-controls="new-project-modal">Add New Project</button>
+                    <button id="new-project-btn" type="button" aria-controls="new-project-modal">Create a new project</button>
                 </div>
             </header>
 
             <div id="projects-list">
-                <article class="project-card">
+                <article class="project-card" role="button" tabindex="0" aria-controls="project-details" aria-label="Open details for Project 1">
                     <div class="card-header">
                         <span class="project-icon">PC1</span>
                         <div>
@@ -122,7 +122,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" role="button" tabindex="0" aria-controls="project-details" aria-label="Open details for Project 2">
                     <div class="card-header">
                         <span class="project-icon">PC2</span>
                         <div>
@@ -142,7 +142,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" role="button" tabindex="0" aria-controls="project-details" aria-label="Open details for Project 3">
                     <div class="card-header">
                         <span class="project-icon">PC3</span>
                         <div>
@@ -162,7 +162,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" role="button" tabindex="0" aria-controls="project-details" aria-label="Open details for Project 4">
                     <div class="card-header">
                         <span class="project-icon">PC4</span>
                         <div>
@@ -182,7 +182,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" role="button" tabindex="0" aria-controls="project-details" aria-label="Open details for Project 5">
                     <div class="card-header">
                         <span class="project-icon">PC5</span>
                         <div>
@@ -204,94 +204,90 @@
             </div>
         </div>
 
-        <div class="page" id="project-details">
+        <div class="page" id="project-details" style="display: none;">
             <header>
                 <div>
                     <h2>Hospital Center</h2>
                     <p class="detail-subtitle">Community hospital located at downtown.</p>
                 </div>
-                <button type="button">Edit Project</button>
+                <div class="header-actions">
+                    <button id="back-to-projects" type="button">Back to Projects</button>
+                    <button type="button">Edit Project</button>
+                </div>
             </header>
             <div class="main-page-content">
-                <div class="details-column">
-                    <div class="dashboard-card">
-                        <div class="summary-row">
-                            <p class="project-avatar">HC</p>
+                <div style="display: flex; flex-direction: column; row-gap: 20px;">
+                    <div class="dashboard-card" style="padding: 30px 0;">
+                        <div style="display: flex; justify-content: space-between; padding: 30px;">
+                            <p style="font-size: 24px; color: white; background-color: darkorange; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px; padding: 10px; cursor: pointer; display: inline-block;">HC</p>
                             <button class="btn-secondary" type="button">Edit</button>
                         </div>
-                        <div class="summary-body">
+                        <div style="padding: 30px;">
                             <h2>Hospital Center</h2>
-                            <p class="detail-subtitle">Community hospital located at downtown.</p>
+                            <p>Community hospital located at downtown.</p>
                         </div>
-                        <div class="summary-grid">
+                        <div style="display: flex; column-gap: 30px; padding: 30px;">
                             <div>
-                                <p class="meta-label">Status</p>
+                                <p style="color: #969696; font-size: var(--font-medium);">Status</p>
                                 <p>Active</p>
                             </div>
                             <div>
-                                <p class="meta-label">Cost</p>
+                                <p style="color: #969696; font-size: var(--font-medium);">Cost</p>
                                 <p>$2,542,000</p>
                             </div>
                             <div>
-                                <p class="meta-label">Role</p>
+                                <p style="color: #969696; font-size: var(--font-medium);">Role</p>
                                 <p>Engineer</p>
                             </div>
                             <div>
-                                <p class="meta-label">Finish Date</p>
+                                <p style="color: #969696; font-size: var(--font-medium);">Finish Date</p>
                                 <p>2023-05-01</p>
                             </div>
                         </div>
-                        <div class="summary-progress">
-                            <div id="myProgress">80%</div>
+                        <div style="margin-top: 20px; background-color: var(--background-100); border-radius: 14px; padding: 30px; font-size: 14px;">
+                            <div id="myProgress" style="width: 80%; height: 40px; background-color: #2ecc71; border-radius: 10px; color: #ecf0f1; line-height: 40px; text-align: center;">
+                                80%
+                            </div>
                         </div>
                     </div>
 
                     <div class="dashboard-card">
-                        <div class="todo-header">
+                        <div style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;">
                             <h4>To-Do</h4>
-                            <div class="todo-actions">
-                                <div class="todo-search">
+                            <div style="display: flex; align-items: center; column-gap: 12px;">
+                                <div style="display: flex; align-items: center; column-gap: 8px;">
                                     <span class="material-icons-outlined">search</span>
                                     <input type="text" placeholder="Search To-Do's by name">
                                 </div>
-                                <span class="material-icons-outlined todo-add" title="Add To-Do" role="button">add</span>
+                                <span class="material-icons-outlined" style="cursor: pointer;" title="Add To-Do" role="button">add</span>
                             </div>
                         </div>
-                        <div class="todo-list">
-                            <div class="todo-item todo-pending">
-                                <div class="todo-row">
-                                    <span class="material-icons-outlined todo-icon">construction</span>
-                                    <div class="todo-text">
-                                        <p class="todo-title">Make anything here as you want, even something longer.</p>
+                        <div style="display: flex; flex-direction: column; justify-content: space-around; row-gap: 12px; padding: 0 20px 20px;">
+                            <div class="todo-item">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; column-gap: 16px;">
+                                    <span class="material-icons-outlined" style="border-radius: 8px; font-size: 18px; padding: 8px; background-color: var(--background-200);">construction</span>
+                                    <div style="flex-grow: 1;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
                                     </div>
-                                    <div class="todo-meta">
-                                        <p class="todo-date">Fri, 20 Sep</p>
-                                        <p class="todo-status">Pending</p>
-                                    </div>
+                                    <p style="margin: 0; font-size: 12px; white-space: nowrap;">Fri, 20 Sep</p>
                                 </div>
                             </div>
-                            <div class="todo-item todo-in-progress">
-                                <div class="todo-row">
-                                    <span class="material-icons-outlined todo-icon">construction</span>
-                                    <div class="todo-text">
-                                        <p class="todo-title">Make anything here as you want, even something longer.</p>
+                            <div class="todo-item">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; column-gap: 16px;">
+                                    <span class="material-icons-outlined" style="border-radius: 8px; font-size: 18px; padding: 8px; background-color: var(--background-200);">construction</span>
+                                    <div style="flex-grow: 1;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
                                     </div>
-                                    <div class="todo-meta">
-                                        <p class="todo-date">Fri, 20 Sep</p>
-                                        <p class="todo-status">In Progress</p>
-                                    </div>
+                                    <p style="margin: 0; font-size: 12px; white-space: nowrap;">Fri, 20 Sep</p>
                                 </div>
                             </div>
-                            <div class="todo-item todo-done">
-                                <div class="todo-row">
-                                    <span class="material-icons-outlined todo-icon">construction</span>
-                                    <div class="todo-text">
-                                        <p class="todo-title">Make anything here as you want, even something longer.</p>
+                            <div class="todo-item">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; column-gap: 16px;">
+                                    <span class="material-icons-outlined" style="border-radius: 8px; font-size: 18px; padding: 8px; background-color: var(--background-200);">construction</span>
+                                    <div style="flex-grow: 1;">
+                                        <p style="margin: 0;">Make anything here as you want, even something longer.</p>
                                     </div>
-                                    <div class="todo-meta">
-                                        <p class="todo-date">Fri, 20 Sep</p>
-                                        <p class="todo-status">Done</p>
-                                    </div>
+                                    <p style="margin: 0; font-size: 12px; white-space: nowrap;">Fri, 20 Sep</p>
                                 </div>
                             </div>
                         </div>
@@ -308,5 +304,63 @@
             </div>
         </div>
     </main>
+    <script>
+        const newProjectBtn = document.getElementById('new-project-btn');
+        const newProjectModal = document.getElementById('new-project-modal');
+        const cancelProjectBtn = document.getElementById('new-project-cancel');
+        const newProjectForm = document.getElementById('new-project-form');
+
+        if (newProjectBtn && newProjectModal) {
+            newProjectBtn.addEventListener('click', () => newProjectModal.showModal());
+        }
+
+        if (cancelProjectBtn && newProjectModal) {
+            cancelProjectBtn.addEventListener('click', () => newProjectModal.close());
+        }
+
+        if (newProjectForm && newProjectModal) {
+            newProjectForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                newProjectModal.close();
+            });
+        }
+
+        const projectsPage = document.getElementById('projects-page');
+        const detailsPage = document.getElementById('project-details');
+        const projectCards = document.querySelectorAll('.project-card');
+        const backToProjectsBtn = document.getElementById('back-to-projects');
+
+        const showProjects = () => {
+            if (projectsPage) {
+                projectsPage.style.display = 'flex';
+            }
+            if (detailsPage) {
+                detailsPage.style.display = 'none';
+            }
+        };
+
+        const showDetails = () => {
+            if (projectsPage) {
+                projectsPage.style.display = 'none';
+            }
+            if (detailsPage) {
+                detailsPage.style.display = 'flex';
+            }
+        };
+
+        projectCards.forEach((card) => {
+            card.addEventListener('click', showDetails);
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    showDetails();
+                }
+            });
+        });
+
+        if (backToProjectsBtn) {
+            backToProjectsBtn.addEventListener('click', showProjects);
+        }
+    </script>
 </body>
 </html>
