@@ -249,9 +249,12 @@ if (addTodoBtn) {
 
         const dueDateInput = prompt("Enter a due date (YYYY-MM-DD) or leave blank:");
         const trimmedDate = dueDateInput ? dueDateInput.trim() : "";
+        const statusInput = prompt("Enter status (pending, in-progress, done):", "pending");
+        const trimmedStatus = statusInput ? statusInput.trim() : "";
         const todoData = {
             title: trimmedTitle,
-            dueDate: trimmedDate ? trimmedDate : undefined
+            dueDate: trimmedDate ? trimmedDate : undefined,
+            status: trimmedStatus ? trimmedStatus : undefined
         };
 
         try {

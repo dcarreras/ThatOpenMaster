@@ -301,12 +301,11 @@ input:focus, textarea:focus, select:focus {
 
 .todo-item{
     padding: 2px;
-    background-color: var(--background-200);
     border-radius: 10px;
     cursor: pointer; 
 }
 .todo-item:hover{
-    background-color: var(--primary);
+    filter: brightness(1.08);
 }
 
 .todo-row {
@@ -336,6 +335,41 @@ input:focus, textarea:focus, select:focus {
     margin: 0;
     font-size: 12px;
     white-space: nowrap;
+}
+
+.todo-status {
+    margin: 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.todo-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.todo-title {
+    margin: 0;
+}
+
+.todo-item.todo-pending {
+    background-color: var(--background-200);
+}
+
+.todo-item.todo-in-progress {
+    background-color: var(--primary);
+}
+
+.todo-item.todo-done {
+    background-color: #2ecc71;
+}
+
+.todo-item.todo-in-progress .todo-icon,
+.todo-item.todo-done .todo-icon {
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 /* Estilos para el Error popup */

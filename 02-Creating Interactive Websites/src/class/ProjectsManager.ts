@@ -53,11 +53,20 @@ export class ProjectsManager{
             throw new Error("Project name must be at least 5 characters long.");
         }
 
+        const incomingId = typeof data.id === "string" ? data.id.trim() : "";
+        if (incomingId && incomingId !== project.id) {
+            const idInUse = this.list.some((existing) => existing.id === incomingId);
+            if (idInUse) {
+                throw new Error(`A project with the id "${incomingId}" already exists`);
+            }
+            project.id = incomingId;
+        }
+
         const nameInUse = this.list.some((existing) => {
-            return existing.id !== id && existing.name === data.name;
+            return existing.id !== project.id && existing.name.trim() === trimmedName;
         });
         if (nameInUse) {
-            throw new Error(`A project with the name "${data.name}" already exists`);
+            throw new Error(`A project with the name "${trimmedName}" already exists`);
         }
 
         project.name = trimmedName;
@@ -68,7 +77,7 @@ export class ProjectsManager{
         project.cost = data.cost;
         project.progress = data.progress;
         if (data.todos !== undefined) {
-            project.todos = [...data.todos];
+            project.setTodos(data.todos);
         }
         project.updateIconColor();
         project.updateUI();
@@ -83,6 +92,16 @@ export class ProjectsManager{
             throw new Error("Project not found.");
         }
         project.addTodo(todo);
+        this.updateProjectDetails(project);
+        return project;
+    }
+
+    updateTodo(projectId: string, todoIndex: number, updates: ITodo) {
+        const project = this.getProject(projectId);
+        if (!project) {
+            throw new Error("Project not found.");
+        }
+        project.updateTodo(todoIndex, updates);
         this.updateProjectDetails(project);
         return project;
     }
@@ -163,9 +182,17 @@ export class ProjectsManager{
 
         list.innerHTML = "";
         const todos = project.todos ?? [];
-        todos.forEach((todo) => {
+        todos.forEach((todo, index) => {
+            const statusValue = todo.status ? todo.status : "pending";
+            let statusClass = statusValue.trim().toLowerCase().replace(/\s+/g, "-");
+            if (!["pending", "in-progress", "done"].includes(statusClass)) {
+                statusClass = "pending";
+            }
+            const statusLabel = statusClass === "in-progress"
+                ? "In Progress"
+                : statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
             const item = document.createElement("div");
-            item.className = "todo-item";
+            item.className = `todo-item todo-${statusClass}`;
             item.style.color = "white";
             const dateLabel = todo.dueDate ? todo.dueDate : "No date";
             item.innerHTML = `
@@ -174,11 +201,33 @@ export class ProjectsManager{
                         construction
                     </span>
                     <div class="todo-text">
-                        <p style="margin: 0;">${todo.title}</p>
+                        <p class="todo-title">${todo.title}</p>
                     </div>
-                    <p class="todo-date">${dateLabel}</p>
+                    <div class="todo-meta">
+                        <p class="todo-date">${dateLabel}</p>
+                        <p class="todo-status">${statusLabel}</p>
+                    </div>
                 </div>
             `;
+            item.addEventListener("click", () => {
+                const titleInput = prompt("Update the To-Do name:", todo.title);
+                if (titleInput === null) {
+                    return;
+                }
+                const dateInput = prompt("Update the due date (YYYY-MM-DD) or leave blank:", todo.dueDate ?? "");
+                if (dateInput === null) {
+                    return;
+                }
+                const statusInput = prompt("Update status (pending, in-progress, done):", todo.status ?? "pending");
+                if (statusInput === null) {
+                    return;
+                }
+                this.updateTodo(project.id, index, {
+                    title: titleInput,
+                    dueDate: dateInput,
+                    status: statusInput
+                });
+            });
             list.appendChild(item);
         });
     }
@@ -249,9 +298,21 @@ export class ProjectsManager{
             try {
                 const projects: IProject[] = JSON.parse(event.target?.result as string);
                 projects.forEach(project => {
-                    // Verificar si el proyecto ya existe
-                    if (this.getAllProjects().some(existingProject => existingProject.name === project.name)) {
-                        throw new Error(`Project with name "${project.name}" already exists.`);
+                    const projectId = typeof project.id === "string" ? project.id.trim() : "";
+                    const existingProject = projectId
+                        ? this.getAllProjects().find(existing => existing.id === projectId)
+                        : null;
+                    if (existingProject) {
+                        this.updateProject(existingProject.id, project);
+                        return;
+                    }
+                    const trimmedName = project.name ? project.name.trim() : "";
+                    const existingByName = trimmedName
+                        ? this.getAllProjects().find(existing => existing.name.trim() === trimmedName)
+                        : null;
+                    if (existingByName) {
+                        this.updateProject(existingByName.id, project);
+                        return;
                     }
                     this.newProject(project);
                 });

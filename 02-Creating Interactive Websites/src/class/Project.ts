@@ -5,9 +5,12 @@ import { v4 as uuidv4} from 'uuid'
 export type ProjectStatus = "pending" | "active" | "finished";
 export type UserRole = "architect" | "structural engineer" | "mechanical engineer" | "electrical engineer" |"developer";
 
+export type TodoStatus = "pending" | "in-progress" | "done";
+
 export interface ITodo {
     title: string;
     dueDate?: string;
+    status?: string;
 }
 
 //Interface para representar un proyecto
@@ -20,6 +23,7 @@ export interface IProject {
     cost: number;
     progress: number;
     todos?: ITodo[];
+    id?: string;
 }
 
 //Clase para representar un proyecto
@@ -70,8 +74,11 @@ export class Project implements IProject {
                 this[key] = data[key];
             }
         }
-        this.todos = data.todos ? [...data.todos] : [];
-        this.id = uuidv4();
+        this.todos = data.todos
+            ? data.todos.map((todo) => Project.normalizeTodoInput(todo))
+            : [];
+        const incomingId = typeof data.id === "string" ? data.id.trim() : "";
+        this.id = incomingId ? incomingId : uuidv4();
         const initials = this.getInitials();
         this.iconColor = Project.getColorForInitials(initials);
         this.setUI();
@@ -101,13 +108,51 @@ export class Project implements IProject {
         return `${year}-${month}-${day}`;
     }
 
-    addTodo(todo: ITodo) {
+    private static normalizeTodoStatus(value?: string): TodoStatus {
+        const normalized = value ? value.trim().toLowerCase() : "";
+        if (normalized === "in progress" || normalized === "in-progress" || normalized === "inprogress") {
+            return "in-progress";
+        }
+        if (normalized === "done" || normalized === "completed" || normalized === "complete") {
+            return "done";
+        }
+        return "pending";
+    }
+
+    private static normalizeTodoInput(todo: ITodo): ITodo {
+        const title = todo.title ? todo.title.trim() : "";
         const dueDateValue = todo.dueDate ? todo.dueDate.trim() : "";
-        const dueDate = dueDateValue ? dueDateValue : Project.getTodayString();
-        this.todos.push({
-            title: todo.title,
-            dueDate
-        });
+        return {
+            title: title || "Untitled To-Do",
+            dueDate: dueDateValue ? dueDateValue : Project.getTodayString(),
+            status: Project.normalizeTodoStatus(todo.status)
+        };
+    }
+
+    addTodo(todo: ITodo) {
+        this.todos.push(Project.normalizeTodoInput(todo));
+    }
+
+    setTodos(todos: ITodo[]) {
+        this.todos = todos.map((todo) => Project.normalizeTodoInput(todo));
+    }
+
+    updateTodo(index: number, updates: ITodo) {
+        const current = this.todos[index];
+        if (!current) {
+            return;
+        }
+        const titleValue = updates.title ? updates.title.trim() : "";
+        const dueDateValue = updates.dueDate !== undefined
+            ? updates.dueDate.trim()
+            : (current.dueDate ? current.dueDate.trim() : "");
+        const statusValue = updates.status !== undefined ? updates.status : current.status;
+
+        this.todos[index] = {
+            title: titleValue || current.title || "Untitled To-Do",
+            dueDate: dueDateValue ? dueDateValue : Project.getTodayString(),
+            status: Project.normalizeTodoStatus(statusValue)
+        };
     }
 
     private getCardHTML(): string {
