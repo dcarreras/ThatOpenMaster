@@ -38,6 +38,7 @@ export class Project implements IProject {
         "#e74c3c",
         "#f1c40f"
     ];
+    private static maxIconColors = 6;
 
     private static initialsColorMap: Record<string, string> = {};
     private static nextColorIndex = 0;
@@ -47,7 +48,7 @@ export class Project implements IProject {
         if (Project.initialsColorMap[key]) {
             return Project.initialsColorMap[key];
         }
-        const colors = Project.iconColors;
+        const colors = Project.iconColors.slice(0, Project.maxIconColors);
         const color = colors[Project.nextColorIndex % colors.length];
         Project.nextColorIndex += 1;
         Project.initialsColorMap[key] = color;
