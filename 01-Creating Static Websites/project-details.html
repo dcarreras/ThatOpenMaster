@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/sublima">
+</head>
+<body class="modal-only">
+    <main id="content">
+        <dialog id="new-project-modal" open>
+            <form id="new-project-form">
+                <h2>New project</h2>
+                <div class="input-list">
+                    <div class="form-field-container">
+                        <label for="project-name">
+                            <span class="material-icons-outlined">domain</span>
+                            Name
+                        </label>
+                        <input id="project-name" name="name" type="text" placeholder="What's the name of your project?" required>
+                        <p class="form-help">TIP: Give it a short name.</p>
+                    </div>
+                    <div class="form-field-container">
+                        <label for="project-description">
+                            <span class="material-icons-outlined">sort</span>
+                            Description
+                        </label>
+                        <textarea id="project-description" name="description" cols="30" rows="5" placeholder="Enter project description" required></textarea>
+                    </div>
+                    <div class="form-field-container">
+                        <label for="project-role">
+                            <span class="material-icons-outlined">person</span>
+                            Role
+                        </label>
+                        <select id="project-role" name="role">
+                            <option>Architect</option>
+                            <option>Engineer</option>
+                            <option>Developer</option>
+                        </select>
+                    </div>
+                    <div class="form-field-container">
+                        <label for="project-status">
+                            <span class="material-icons-outlined">question_mark</span>
+                            Status
+                        </label>
+                        <select id="project-status" name="status">
+                            <option>Pending</option>
+                            <option>Active</option>
+                            <option>Finished</option>
+                        </select>
+                    </div>
+                    <div class="form-field-container">
+                        <label for="finish-date">
+                            <span class="material-icons-outlined">event</span>
+                            Finish Date
+                        </label>
+                        <input id="finish-date" name="finishDate" type="date">
+                    </div>
+                    <div class="form-field-container">
+                        <label for="project-cost">
+                            <span class="material-icons-outlined">attach_money</span>
+                            Cost
+                        </label>
+                        <input id="project-cost" name="cost" type="number" placeholder="Enter project cost">
+                    </div>
+                    <div class="form-field-container">
+                        <label for="project-progress">
+                            <span class="material-icons-outlined">trending_up</span>
+                            Progress
+                        </label>
+                        <input id="project-progress" name="progress" type="number" placeholder="Enter project progress" min="0" max="100">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-ghost" type="button">Cancel</button>
+                        <button class="btn-success" type="submit">Accept</button>
+                    </div>
+                </div>
+            </form>
+        </dialog>
+    </main>
+</body>
+</html>

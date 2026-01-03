@@ -9,18 +9,18 @@
     --background: #202124;
     --background-100: #26282b;
     --background-200: #3b3c3f;
-    --font-xs: 10px; 
+    --font-xs: 10px;
     --font-sm: 12px;
     --font-base: 14px;
     --font-lg: 16px;
     --font-xl: 18px;
     --font-2xl: 20px;
     --font-3xl: 22px;
-    --font-medium: 14px; /* Added this variable */
+    --font-medium: 14px;
 }
 
 * {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Sublima', 'Inter', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -29,9 +29,17 @@ body {
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-areas: 'sidebar content';
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--background);
     color: white;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-bottom: 40px;
+    min-height: 100vh;
 }
 
 /* General Styles */
@@ -68,10 +76,28 @@ button:hover {
     background-color: var(--primary-200);
 }
 
-.page{
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.meta-label {
+    color: #969696;
+    font-size: var(--font-medium);
+}
+
+.detail-subtitle {
+    color: #969696;
+    font-size: var(--font-medium);
+}
+
+.page {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    flex: 1;
 }
 
 #company-logo {
@@ -140,6 +166,19 @@ button:hover {
     height: 60px;
 }
 
+.project-icon {
+    background-color: #ca8134;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 4px 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .card-content {
     padding: 30px 20px;
     background-color: var(--background-200);
@@ -164,45 +203,9 @@ button:hover {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
-/*Form Styles*/
-
-dialog {
-    background-color: transparent;
-    border: none;
-    margin: auto;
-}
-
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
-}
-
-form {
-    width: 450px;
-    border-radius: 10px;
-    background-color: var(--background-100);
-    color: white;
-}
-
-form h2 {
-    padding: 20px;
-    border-bottom: 2px solid var(--background);
-    color: white;
-}
-
-form .input-list {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    row-gap: 25px;
-}
-
-form .form-field-container {
-    display: flex;
-    flex-direction: column;
-}
-
-input, textarea, select {
+input,
+textarea,
+select {
     color: white;
     background-color: var(--background-200);
     padding: 15px;
@@ -211,29 +214,120 @@ input, textarea, select {
     font-size: var(--font-base);
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
     outline: 2px solid var(--primary);
 }
 
-/* Project Details Page */
+dialog {
+    background-color: transparent;
+    border: none;
+    margin: auto;
+    padding: 0;
+}
 
-.dashboard-card {
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+body.modal-only {
+    grid-template-columns: 1fr;
+    grid-template-areas: "content";
+    min-height: 100vh;
+    position: relative;
+}
+
+body.modal-only::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 0;
+}
+
+body.modal-only #content {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+#new-project-modal form {
+    width: min(90vw, 450px);
+    border-radius: 10px;
     background-color: var(--background-100);
-    border-radius: 8px;
+    color: white;
+}
+
+#new-project-modal h2 {
+    padding: 20px;
+    border-bottom: 2px solid var(--background);
+    color: white;
+    font-weight: bolder;
+}
+
+#new-project-modal .input-list {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    justify-content: space-between;
-    gap: 20px; /* This will create a 20px gap between flex items */
-    
+    row-gap: 25px;
 }
+
+#new-project-modal .form-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#new-project-modal .form-field-container label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+#new-project-modal .form-help {
+    font-size: 10px;
+    font-style: italic;
+    color: grey;
+}
+
+#new-project-modal .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-ghost {
+    background-color: transparent;
+    color: white;
+}
+
+.btn-ghost:hover {
+    background-color: var(--background-200);
+}
+
+.btn-success {
+    background-color: #2ecc71;
+}
+
+.btn-success:hover {
+    background-color: #32d97b;
+}
+
+/* Project Details Page */
 
 #project-details > .main-page-content {
     display: grid;
     padding: 20px 40px;
     gap: 30px;
-    grid-template-columns:  475px 1fr;
-    height: 100%;   
+    grid-template-columns: 475px 1fr;
+    height: 100%;
     row-gap: 10px;
 }
 
@@ -242,49 +336,279 @@ input:focus, textarea:focus, select:focus {
     padding: 20px;
     text-align: left;
 }
+
 #project-details header h2 {
     margin: 0;
     color: #fff;
 }
+
 #project-details header p {
     color: #aaa;
 }
-.main-page-content {
-    
-    padding: 0 20px;
-    
+
+.dashboard-card {
+    background-color: var(--background-100);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    gap: 20px;
 }
 
+.main-page-content {
+    padding: 0 20px;
+}
 
-/*Project information Card*/
+.details-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
 
-.btn-secondary{
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+}
+
+.project-avatar {
+    font-size: 24px;
+    color: white;
+    background-color: darkorange;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-body {
+    padding: 0 30px 20px;
+}
+
+.summary-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0 30px 30px;
+}
+
+.summary-progress {
+    margin-top: 20px;
+    background-color: var(--background-100);
+    border-radius: 14px;
+    padding: 30px;
+    font-size: 14px;
+}
+
+/* Project information Card */
+
+.btn-secondary {
     background-color: transparent;
     outline: 2px solid #969696;
     width: 100px;
     text-align: center;
-    
-    
-    
-    
 }
 
-.btn-secondary:hover{
+.btn-secondary:hover {
     background-color: var(--primary);
-    outline: none;    
+    outline: none;
 }
 
-.todo-item{
+.todo-header {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.todo-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.todo-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.todo-add {
+    cursor: pointer;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 20px 20px;
+}
+
+.todo-item {
     padding: 2px;
-    background-color: var(--background-200);
     border-radius: 10px;
-    cursor: pointer; 
+    cursor: pointer;
 }
-.todo-item:hover{
+
+.todo-item:hover {
+    filter: brightness(1.08);
+}
+
+.todo-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+}
+
+.todo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: var(--background-200);
+    flex-shrink: 0;
+}
+
+.todo-text {
+    flex: 1;
+}
+
+.todo-date {
+    margin: 0;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.todo-status {
+    margin: 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.todo-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.todo-title {
+    margin: 0;
+}
+
+.todo-item.todo-pending {
+    background-color: var(--background-200);
+}
+
+.todo-item.todo-in-progress {
     background-color: var(--primary);
 }
 
+.todo-item.todo-done {
+    background-color: #2ecc71;
+}
 
+.todo-item.todo-in-progress .todo-icon,
+.todo-item.todo-done .todo-icon {
+    background-color: rgba(0, 0, 0, 0.15);
+}
 
+.viewer-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px dashed var(--background-200);
+    color: #969696;
+    min-height: 220px;
+    text-align: center;
+}
 
+/* Progress Bar */
 
+#myProgress {
+    width: 80%;
+    height: 40px;
+    background-color: #2ecc71;
+    border-radius: 10px;
+    color: #ecf0f1;
+    line-height: 40px;
+    text-align: center;
+}
+
+.action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-medium);
+    padding: 8px 15px;
+    cursor: pointer;
+    height: 40px;
+    width: 50px;
+    background-color: var(--background);
+    color: white;
+    border-radius: 100px;
+    border: none;
+    user-select: none;
+}
+
+.action-icon:hover {
+    background-color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    body {
+        grid-template-columns: 1fr;
+    }
+
+    #sidebar {
+        row-gap: 20px;
+    }
+
+    #nav-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #content header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    #projects-list {
+        padding: 20px;
+        grid-template-columns: 1fr;
+    }
+
+    #project-details > .main-page-content {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .summary-row {
+        padding: 20px;
+    }
+
+    .summary-body,
+    .summary-grid {
+        padding: 0 20px 20px;
+    }
+
+    .summary-grid {
+        gap: 16px;
+    }
+}
