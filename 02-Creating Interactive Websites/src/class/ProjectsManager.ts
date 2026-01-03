@@ -61,6 +61,7 @@ export class ProjectsManager{
         const icon = document.getElementById("detail-project-icon");
         if (icon) {
             icon.textContent = project.getInitials();
+            icon.style.backgroundColor = project.iconColor;
         }
 
         const status = document.getElementById("detail-project-status");

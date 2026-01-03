@@ -28,7 +28,31 @@ export class Project implements IProject {
     progress: number;
     ui: HTMLDivElement;
     id: string;
+    iconColor: string;
 
+    private static iconColors = [
+        "#ca8134",
+        "#2ecc71",
+        "#3498db",
+        "#9b59b6",
+        "#e74c3c",
+        "#f1c40f"
+    ];
+
+    private static initialsColorMap: Record<string, string> = {};
+    private static nextColorIndex = 0;
+
+    private static getColorForInitials(initials: string): string {
+        const key = initials.toUpperCase();
+        if (Project.initialsColorMap[key]) {
+            return Project.initialsColorMap[key];
+        }
+        const colors = Project.iconColors;
+        const color = colors[Project.nextColorIndex % colors.length];
+        Project.nextColorIndex += 1;
+        Project.initialsColorMap[key] = color;
+        return color;
+    }
 
     // Constructor para inicializar un proyecto con los datos proporcionados
     constructor(data: IProject) {
@@ -39,6 +63,8 @@ export class Project implements IProject {
             }
         }
         this.id = uuidv4();
+        const initials = this.getInitials();
+        this.iconColor = Project.getColorForInitials(initials);
         this.setUI();
     }
 
@@ -62,7 +88,7 @@ export class Project implements IProject {
         this.ui.className = "project-card";
         this.ui.innerHTML = `
             <div class="card-header">
-                <span class="project-icon">${initials}</span>
+                <span class="project-icon" style="background-color: ${this.iconColor};">${initials}</span>
                 <div>
                     <h5>${this.name}</h5>
                     <p>${this.description}</p>
