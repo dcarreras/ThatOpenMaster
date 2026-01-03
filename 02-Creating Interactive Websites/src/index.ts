@@ -46,6 +46,8 @@ const newProjectBtn = document.getElementById("new-project-btn");
 //Evento para alternar la visibilidad del modal de nuevo proyecto
 if (newProjectBtn) {
     newProjectBtn.addEventListener("click", () => {
+        resetProjectFormState();
+        projectForm?.reset();
         toggleModal("new-project-modal");
     });
 } else {
@@ -60,6 +62,34 @@ const nextErrorBtn = document.getElementById("next-error-btn") as HTMLButtonElem
 const closeErrorBtn = document.getElementById("close-error-btn") as HTMLButtonElement;
 
 let errorStep = 0; // Variable para rastrear el paso actual del error
+let editingProjectId: string | null = null;
+
+const projectFormTitle = projectForm ? projectForm.querySelector("h2") as HTMLElement | null : null;
+const projectSubmitBtn = projectForm ? projectForm.querySelector("button[type='submit']") as HTMLButtonElement | null : null;
+
+function setProjectFormMode(isEditing: boolean) {
+    if (projectFormTitle) {
+        projectFormTitle.textContent = isEditing ? "Edit Project" : "New Project";
+    }
+    if (projectSubmitBtn) {
+        projectSubmitBtn.textContent = isEditing ? "Save" : "Accept";
+    }
+}
+
+function resetProjectFormState() {
+    editingProjectId = null;
+    setProjectFormMode(false);
+}
+
+function setSelectValue(select: HTMLSelectElement, targetValue: string) {
+    const normalized = targetValue.toLowerCase();
+    const match = Array.from(select.options).find((option) => {
+        return option.value.toLowerCase() === normalized || option.text.toLowerCase() === normalized;
+    });
+    if (match) {
+        select.value = match.value;
+    }
+}
 
 //Evento para manejar el envio del formulario de nuevo proyecto
 if (projectForm) {
@@ -87,8 +117,13 @@ if (projectForm) {
 
         //Intentar crear un nuevo proyecto
         try {
-            const project = projectsManager.newProject(projectData);
+            if (editingProjectId) {
+                projectsManager.updateProject(editingProjectId, projectData);
+            } else {
+                projectsManager.newProject(projectData);
+            }
             projectForm.reset();
+            resetProjectFormState();
             closeModal("new-project-modal");
         } catch (error) {
             console.error(error); // Mostrar el error en la consola
@@ -128,10 +163,72 @@ const cancelBtn = document.getElementById("cancel-btn");
 //Evento para cerrar el modal de nuevo proyecto
 if (cancelBtn) {
     cancelBtn.addEventListener("click", () => {
+        resetProjectFormState();
+        projectForm?.reset();
         closeModal("new-project-modal"); // Cerrar el modal cuando se hace clic en cancelar
     });
 } else {
     console.warn("Cancel Button was not found");
+}
+
+const editProjectBtn = document.getElementById("edit-project-btn") as HTMLButtonElement;
+const detailsPage = document.getElementById("project-details") as HTMLElement;
+
+if (editProjectBtn) {
+    editProjectBtn.addEventListener("click", () => {
+        const projectId = detailsPage?.dataset.projectId;
+        if (!projectId) {
+            console.warn("No project selected for editing.");
+            return;
+        }
+        const project = projectsManager.getProject(projectId);
+        if (!project) {
+            console.warn("Selected project not found.");
+            return;
+        }
+
+        editingProjectId = project.id;
+        setProjectFormMode(true);
+
+        const nameInput = projectForm?.elements.namedItem("name") as HTMLInputElement | null;
+        const descriptionInput = projectForm?.elements.namedItem("description") as HTMLTextAreaElement | null;
+        const statusSelect = projectForm?.elements.namedItem("status") as HTMLSelectElement | null;
+        const roleSelect = projectForm?.elements.namedItem("userRole") as HTMLSelectElement | null;
+        const finishDateInput = projectForm?.elements.namedItem("finishDate") as HTMLInputElement | null;
+        const costInput = projectForm?.elements.namedItem("cost") as HTMLInputElement | null;
+        const progressInput = projectForm?.elements.namedItem("progress") as HTMLInputElement | null;
+
+        if (nameInput) {
+            nameInput.value = project.name;
+        }
+        if (descriptionInput) {
+            descriptionInput.value = project.description;
+        }
+        if (statusSelect) {
+            setSelectValue(statusSelect, String(project.status));
+        }
+        if (roleSelect) {
+            setSelectValue(roleSelect, String(project.userRole));
+        }
+        if (finishDateInput) {
+            const dateValue = project.finishDate instanceof Date
+                ? project.finishDate
+                : new Date(project.finishDate);
+            finishDateInput.value = isNaN(dateValue.getTime())
+                ? ""
+                : dateValue.toISOString().slice(0, 10);
+        }
+        if (costInput) {
+            costInput.value = String(project.cost);
+        }
+        if (progressInput) {
+            progressInput.value = String(project.progress);
+        }
+
+        showModal("new-project-modal");
+    });
+} else {
+    console.warn("Edit Project button was not found");
 }
 
 //Crear un proyecto por defecto

@@ -81,13 +81,13 @@ export class Project implements IProject {
         return words.slice(0, 2).map((word) => word[0]).join("");
     }
 
-    //Metodo para establecer la interfaz de usuario del proyecto (DOM)
-    setUI() {  
-        if(this.ui){return}
+    updateIconColor() {
+        this.iconColor = Project.getColorForInitials(this.getInitials());
+    }
+
+    private getCardHTML(): string {
         const initials = this.getInitials();
-        this.ui = document.createElement("div");
-        this.ui.className = "project-card";
-        this.ui.innerHTML = `
+        return `
             <div class="card-header">
                 <span class="project-icon" style="background-color: ${this.iconColor};">${initials}</span>
                 <div>
@@ -114,5 +114,18 @@ export class Project implements IProject {
                 </div>
             </div>
         `;
+    }
+
+    updateUI() {
+        if (!this.ui) { return; }
+        this.ui.innerHTML = this.getCardHTML();
+    }
+
+    //Metodo para establecer la interfaz de usuario del proyecto (DOM)
+    setUI() {  
+        if(this.ui){return}
+        this.ui = document.createElement("div");
+        this.ui.className = "project-card";
+        this.updateUI();
     }
 }

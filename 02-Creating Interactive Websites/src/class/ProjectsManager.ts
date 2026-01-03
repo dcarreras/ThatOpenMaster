@@ -42,7 +42,44 @@ export class ProjectsManager{
         return project
     }
 
+    updateProject(id: string, data: IProject) {
+        const project = this.getProject(id);
+        if (!project) {
+            throw new Error("Project not found.");
+        }
+
+        const trimmedName = data.name.trim();
+        if (trimmedName.length < 5) {
+            throw new Error("Project name must be at least 5 characters long.");
+        }
+
+        const nameInUse = this.list.some((existing) => {
+            return existing.id !== id && existing.name === data.name;
+        });
+        if (nameInUse) {
+            throw new Error(`A project with the name "${data.name}" already exists`);
+        }
+
+        project.name = trimmedName;
+        project.description = data.description;
+        project.status = data.status;
+        project.userRole = data.userRole;
+        project.finishDate = data.finishDate;
+        project.cost = data.cost;
+        project.progress = data.progress;
+        project.updateIconColor();
+        project.updateUI();
+        this.updateProjectDetails(project);
+
+        return project;
+    }
+
     private updateProjectDetails(project: Project) {
+        const detailsPage = document.getElementById("project-details");
+        if (detailsPage) {
+            detailsPage.dataset.projectId = project.id;
+        }
+
         const title = document.getElementById("detail-project-title");
         if (title) {
             title.textContent = project.name;
