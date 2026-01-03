@@ -140,6 +140,19 @@ button:hover {
     height: 60px;
 }
 
+.project-icon {
+    background-color: #ca8134;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 4px 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .card-content {
     padding: 30px 20px;
     background-color: var(--background-200);

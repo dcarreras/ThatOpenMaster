@@ -42,14 +42,27 @@ export class Project implements IProject {
         this.setUI();
     }
 
+    // Metodo para calcular las iniciales del proyecto
+    getInitials(): string {
+        const words = this.name.trim().split(/\s+/).filter(Boolean);
+        if (words.length === 0) {
+            return "NA";
+        }
+        if (words.length === 1) {
+            return words[0].slice(0, 2);
+        }
+        return words.slice(0, 2).map((word) => word[0]).join("");
+    }
+
     //Metodo para establecer la interfaz de usuario del proyecto (DOM)
     setUI() {  
         if(this.ui){return}
+        const initials = this.getInitials();
         this.ui = document.createElement("div");
         this.ui.className = "project-card";
         this.ui.innerHTML = `
             <div class="card-header">
-                <p style="background-color: #ca8134; padding: 10px; border-radius: 8px;">PC1</p>
+                <span class="project-icon">${initials}</span>
                 <div>
                     <h5>${this.name}</h5>
                     <p>${this.description}</p>

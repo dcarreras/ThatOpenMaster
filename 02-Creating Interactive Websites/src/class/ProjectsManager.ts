@@ -26,6 +26,7 @@ export class ProjectsManager{
             const projectsPage = document.getElementById("projects-page");
             const detailsPage = document.getElementById("project-details");
             if (!(projectsPage && detailsPage)) { return; }
+            this.updateProjectDetails(project);
             projectsPage.style.display = "none";
             detailsPage.style.display = "flex";
         });
@@ -34,6 +35,66 @@ export class ProjectsManager{
         this.list.push(project)
 
         return project
+    }
+
+    private updateProjectDetails(project: Project) {
+        const title = document.getElementById("detail-project-title");
+        if (title) {
+            title.textContent = project.name;
+        }
+
+        const description = document.getElementById("detail-project-description");
+        if (description) {
+            description.textContent = project.description;
+        }
+
+        const name = document.getElementById("detail-project-name");
+        if (name) {
+            name.textContent = project.name;
+        }
+
+        const summary = document.getElementById("detail-project-summary");
+        if (summary) {
+            summary.textContent = project.description;
+        }
+
+        const icon = document.getElementById("detail-project-icon");
+        if (icon) {
+            icon.textContent = project.getInitials();
+        }
+
+        const status = document.getElementById("detail-project-status");
+        if (status) {
+            status.textContent = project.status;
+        }
+
+        const role = document.getElementById("detail-project-role");
+        if (role) {
+            role.textContent = project.userRole;
+        }
+
+        const cost = document.getElementById("detail-project-cost");
+        if (cost) {
+            cost.textContent = project.cost.toLocaleString();
+        }
+
+        const finishDate = document.getElementById("detail-project-finish-date");
+        if (finishDate) {
+            const dateValue = project.finishDate instanceof Date
+                ? project.finishDate
+                : new Date(project.finishDate);
+            finishDate.textContent = isNaN(dateValue.getTime())
+                ? String(project.finishDate)
+                : dateValue.toISOString().slice(0, 10);
+        }
+
+        const progressBar = document.getElementById("myProgress") as HTMLElement | null;
+        if (progressBar) {
+            const progressValue = Number(project.progress);
+            const clampedProgress = Math.min(100, Math.max(0, isNaN(progressValue) ? 0 : progressValue));
+            progressBar.textContent = `${clampedProgress}%`;
+            progressBar.style.width = `${clampedProgress}%`;
+        }
     }
    
     //Metodo para obtener un proyecto por su id
