@@ -66,12 +66,14 @@ if (projectForm) {
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(projectForm);
+        const finishDateValue = formData.get("finishDate") as string;
+        const finishDate = finishDateValue ? new Date(finishDateValue) : new Date();
         const projectData: IProject = {
             name: formData.get("name") as string,
             description: formData.get("description") as string,
             status: formData.get("status") as ProjectStatus,
             userRole: formData.get("userRole") as UserRole,
-            finishDate: new Date(formData.get("finishDate") as string),
+            finishDate,
             cost: parseFloat(formData.get("cost") as string) || 0,
             progress: parseInt(formData.get("progress") as string) || 0
         };
