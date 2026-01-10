@@ -26,12 +26,16 @@
 }
 
 body {
+    margin: 0;
+    background-color: var(--background);
+    color: white;
+}
+
+#app {
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-areas: 'sidebar content';
     height: 100vh;
-    background-color: var(--background);
-    color: white;
 }
 
 /* General Styles */
@@ -117,6 +121,39 @@ button:hover {
     justify-content: space-between;
 }
 
+.projects-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.projects-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--background-100);
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-width: 260px;
+}
+
+.projects-search input {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: var(--font-base);
+    color: white;
+    width: 100%;
+}
+
+.projects-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .project-card {
     background-color: var(--background-100);
     border-radius: 8px;
@@ -127,6 +164,11 @@ button:hover {
 
 .project-card:hover {
     outline: 2px solid var(--primary);
+}
+
+.project-card bim-label {
+    white-space: normal;
+    display: block;
 }
 
 .card-header {

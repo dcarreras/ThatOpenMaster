@@ -1,0 +1,166 @@
+[
+  {
+    "name": "PC-Default",
+    "description": "This is a default project",
+    "status": "pending",
+    "userRole": "architect",
+    "finishDate": "2026-01-03T09:24:51.766Z",
+    "cost": 10000,
+    "progress": 0,
+    "todos": [
+      {
+        "title": "draft project brief",
+        "dueDate": "2026-01-08"
+      },
+      {
+        "title": "confirm budget range",
+        "dueDate": "2026-01-12"
+      }
+    ],
+    "id": "96f2484f-e1f6-41f2-8a6c-fdb6765a3673",
+    "iconColor": "#ca8134"
+  },
+  {
+    "name": "Data Center",
+    "description": "Construcción de un centro de datos con redundancia eléctrica y climatización de precisión.",
+    "status": "active",
+    "userRole": "architect",
+    "finishDate": "2026-05-18T00:00:00.000Z",
+    "cost": 4200000,
+    "progress": 55,
+    "id": "a9bca610-e7bf-4de9-8f55-56e2f132514f",
+    "todos": [
+      {
+        "title": "to do 1",
+        "dueDate": "2026-01-03"
+      },
+      {
+        "title": "to do 2",
+        "dueDate": "2026-03-20"
+      }
+    ],
+    "iconColor": "#2ecc71"
+  },
+  {
+    "name": "Pharma Project",
+    "description": "Edificación de planta farmacéutica con áreas GMP y control ambiental estricto.",
+    "status": "pending",
+    "userRole": "structural engineer",
+    "finishDate": "2026-09-30T00:00:00.000Z",
+    "cost": 6800000,
+    "progress": 20,
+    "id": "5c429f27-e954-4d78-a21f-9319d8c5a9a1",
+    "todos": [
+      {
+        "title": "review GMP layout",
+        "dueDate": "2026-02-01"
+      },
+      {
+        "title": "confirm cleanroom specs",
+        "dueDate": "2026-02-20"
+      }
+    ],
+    "iconColor": "#3498db"
+  },
+  {
+    "name": "Clean Room Project",
+    "description": "Implementación de salas limpias ISO 7 para fabricación de dispositivos médicos.",
+    "status": "active",
+    "userRole": "mechanical engineer",
+    "finishDate": "2026-07-12T00:00:00.000Z",
+    "cost": 3100000,
+    "progress": 40,
+    "id": "950979f1-08ec-461f-9b55-9f25c8180c11",
+    "todos": [
+      {
+        "title": "to do 3",
+        "dueDate": "2026-01-03"
+      },
+      {
+        "title": "to do 4",
+        "dueDate": "2026-02-05"
+      }
+    ],
+    "iconColor": "#9b59b6"
+  },
+  {
+    "name": "Logistics Hub",
+    "description": "Construcción de nave logística con muelles de carga y automatización de racks.",
+    "status": "pending",
+    "userRole": "electrical engineer",
+    "finishDate": "2026-11-05T00:00:00.000Z",
+    "cost": 2550000,
+    "progress": 15,
+    "id": "e26ea481-27d7-46a9-b399-9eb37691f574",
+    "todos": [
+      {
+        "title": "verify power loads",
+        "dueDate": "2026-03-05"
+      }
+    ],
+    "iconColor": "#e74c3c"
+  },
+  {
+    "name": "Hospital Expansion",
+    "description": "Ampliación de hospital con nuevas salas de cirugía y UCI.",
+    "status": "finished",
+    "userRole": "developer",
+    "finishDate": "2026-02-28T00:00:00.000Z",
+    "cost": 5400000,
+    "progress": 100,
+    "id": "d2711f3f-7374-4b5d-87ff-f813d3acdbb9",
+    "todos": [
+      {
+        "title": "finalize surgery wing plan",
+        "dueDate": "2026-01-25"
+      },
+      {
+        "title": "confirm ICU equipment list",
+        "dueDate": "2026-02-10"
+      }
+    ],
+    "iconColor": "#f1c40f"
+  },
+  {
+    "name": "Research Lab Upgrade",
+    "description": "Upgrade lab HVAC and filtration systems.",
+    "status": "active",
+    "userRole": "mechanical engineer",
+    "finishDate": "2026-08-15T00:00:00.000Z",
+    "cost": 2800000,
+    "progress": 35,
+    "id": "7a0e2f0c-9b1f-4f6f-a2d1-0a0c9a2db001",
+    "todos": [
+      {
+        "title": "audit existing systems",
+        "dueDate": "2026-01-22"
+      },
+      {
+        "title": "specify filtration units",
+        "dueDate": "2026-02-10"
+      }
+    ],
+    "iconColor": "#ca8134"
+  },
+  {
+    "name": "Solar Plant Upgrade",
+    "description": "Replace inverters and add battery storage.",
+    "status": "pending",
+    "userRole": "electrical engineer",
+    "finishDate": "2026-10-05T00:00:00.000Z",
+    "cost": 4600000,
+    "progress": 10,
+    "id": "c5e0b7b2-0f7c-4cf2-9e6b-19d4f8f6b402",
+    "todos": [
+      {
+        "title": "confirm inverter supplier",
+        "dueDate": "2026-02-18"
+      },
+      {
+        "title": "define battery sizing",
+        "dueDate": "2026-03-01"
+      }
+    ],
+    "iconColor": "#2ecc71"
+  }
+]
