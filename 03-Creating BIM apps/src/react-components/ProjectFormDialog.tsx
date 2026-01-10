@@ -128,7 +128,9 @@ export function ProjectFormDialog({
     return (
         <dialog id="new-project-modal" ref={dialogRef} onClose={onClose}>
             <form id="new-project-form" onSubmit={handleSubmit}>
-                <h2>{project ? "Edit Project" : "New Project"}</h2>
+                <bim-label className="bim-h2">
+                    {project ? "Edit Project" : "New Project"}
+                </bim-label>
                 <div className="input-list">
                     <div className="form-field-container">
                         <label
@@ -154,7 +156,8 @@ export function ProjectFormDialog({
                             value={formValues.name}
                             onChange={handleChange}
                         />
-                        <h5
+                        <bim-label
+                            className="bim-h5"
                             style={{
                                 fontFamily: "unset",
                                 color: "grey",
@@ -164,7 +167,7 @@ export function ProjectFormDialog({
                             }}
                         >
                             TIP: Give it a short name
-                        </h5>
+                        </bim-label>
                     </div>
 
                     <div className="form-field-container">

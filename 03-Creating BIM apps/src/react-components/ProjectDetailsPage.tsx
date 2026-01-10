@@ -25,8 +25,10 @@ export function ProjectDetailsPage({
             <div className="page" id="project-details" style={{ display: "flex" }}>
                 <header>
                     <div>
-                        <h2>Project not found</h2>
-                        <p style={{ color: "#969696" }}>Select a project from the list.</p>
+                        <bim-label className="bim-h2">Project not found</bim-label>
+                        <bim-label style={{ color: "#969696" }}>
+                            Select a project from the list.
+                        </bim-label>
                     </div>
                 </header>
             </div>
@@ -111,11 +113,11 @@ export function ProjectDetailsPage({
                             construction
                         </span>
                         <div className="todo-text">
-                            <p className="todo-title">{todo.title}</p>
+                            <bim-label className="todo-title">{todo.title}</bim-label>
                         </div>
                         <div className="todo-meta">
-                            <p className="todo-date">{dateLabel}</p>
-                            <p className="todo-status">{statusLabel}</p>
+                            <bim-label className="todo-date">{dateLabel}</bim-label>
+                            <bim-label className="todo-status">{statusLabel}</bim-label>
                         </div>
                     </div>
                 </div>
@@ -127,10 +129,12 @@ export function ProjectDetailsPage({
         <div className="page" id="project-details" style={{ display: "flex" }}>
             <header>
                 <div>
-                    <h2 id="detail-project-title">{project.name}</h2>
-                    <p id="detail-project-description" style={{ color: "#969696" }}>
+                    <bim-label id="detail-project-title" className="bim-h2">
+                        {project.name}
+                    </bim-label>
+                    <bim-label id="detail-project-description" style={{ color: "#969696" }}>
                         {project.description}
-                    </p>
+                    </bim-label>
                 </div>
                 <button id="edit-project-btn" onClick={() => onEditProject(project.id)}>
                     Edit Project
@@ -140,7 +144,7 @@ export function ProjectDetailsPage({
                 <div style={{ display: "flex", flexDirection: "column", rowGap: 20 }}>
                     <div className="dashboard-card" style={{ padding: "30px 0" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", padding: 30 }}>
-                            <p
+                            <bim-label
                                 id="detail-project-icon"
                                 style={{
                                     fontSize: 24,
@@ -157,31 +161,43 @@ export function ProjectDetailsPage({
                                 }}
                             >
                                 {project.getInitials()}
-                            </p>
+                            </bim-label>
                             <button className="btn-secondary">
-                                <p>Click Here</p>
+                                <bim-label>Click Here</bim-label>
                             </button>
                         </div>
                         <div style={{ padding: 30 }}>
-                            <h2 id="detail-project-name">{project.name}</h2>
-                            <p id="detail-project-summary">{project.description}</p>
+                            <bim-label id="detail-project-name" className="bim-h2">
+                                {project.name}
+                            </bim-label>
+                            <bim-label id="detail-project-summary">{project.description}</bim-label>
                         </div>
                         <div style={{ display: "flex", columnGap: 30, padding: 30 }}>
                             <div>
-                                <p style={{ color: "#969696", fontSize: "var(--font-medium)" }}>Status</p>
-                                <p id="detail-project-status">{project.status}</p>
+                                <bim-label style={{ color: "#969696", fontSize: "var(--font-medium)" }}>
+                                    Status
+                                </bim-label>
+                                <bim-label id="detail-project-status">{project.status}</bim-label>
                             </div>
                             <div>
-                                <p style={{ color: "#969696", fontSize: "var(--font-medium)" }}>Cost</p>
-                                <p id="detail-project-cost">{project.cost.toLocaleString()}</p>
+                                <bim-label style={{ color: "#969696", fontSize: "var(--font-medium)" }}>
+                                    Cost
+                                </bim-label>
+                                <bim-label id="detail-project-cost">
+                                    {project.cost.toLocaleString()}
+                                </bim-label>
                             </div>
                             <div>
-                                <p style={{ color: "#969696", fontSize: "var(--font-medium)" }}>Role</p>
-                                <p id="detail-project-role">{project.userRole}</p>
+                                <bim-label style={{ color: "#969696", fontSize: "var(--font-medium)" }}>
+                                    Role
+                                </bim-label>
+                                <bim-label id="detail-project-role">{project.userRole}</bim-label>
                             </div>
                             <div>
-                                <p style={{ color: "#969696", fontSize: "var(--font-medium)" }}>Finish Date</p>
-                                <p id="detail-project-finish-date">{finishDateText}</p>
+                                <bim-label style={{ color: "#969696", fontSize: "var(--font-medium)" }}>
+                                    Finish Date
+                                </bim-label>
+                                <bim-label id="detail-project-finish-date">{finishDateText}</bim-label>
                             </div>
                         </div>
                         <div
@@ -218,7 +234,7 @@ export function ProjectDetailsPage({
                                 justifyContent: "space-between"
                             }}
                         >
-                            <h4>To-Do</h4>
+                            <bim-label className="bim-h4">To-Do</bim-label>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <SearchBox />
                                 <span

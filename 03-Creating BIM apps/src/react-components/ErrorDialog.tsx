@@ -31,8 +31,10 @@ export function ErrorDialog({ message, onClose }: ErrorDialogProps) {
             onClose={onClose}
         >
             <div className="error-content">
-                <h2 style={{ color: "white" }}>Error</h2>
-                <p className="error-message">{message ?? "An error occurred."}</p>
+                <bim-label style={{ color: "white" }}>Error</bim-label>
+                <bim-label className="error-message">
+                    {message ?? "An error occurred."}
+                </bim-label>
                 <button className="error-button" onClick={() => dialogRef.current?.close()}>
                     Close
                 </button>

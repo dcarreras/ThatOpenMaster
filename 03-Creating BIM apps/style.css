@@ -57,6 +57,22 @@ h5 {
     font-size: var(--font-lg);
 }
 
+.bim-h2 {
+    font-size: var(--font-3xl);
+    font-weight: bolder;
+    display: block;
+}
+
+.bim-h4 {
+    font-size: var(--font-xl);
+    display: block;
+}
+
+.bim-h5 {
+    font-size: var(--font-lg);
+    display: block;
+}
+
 button{
     padding: 8px 15px;
     cursor: pointer;

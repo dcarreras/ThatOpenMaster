@@ -76,7 +76,7 @@ export function ProjectsPage({
         <div className="page" id="projects-page" style={{ display: "block" }}>
             <header>
                 <div className="projects-header">
-                    <h2>Projects</h2>
+                    <bim-label className="bim-h2">Projects</bim-label>
                     <div className="projects-search">
                         <span className="material-icons-outlined">search</span>
                         <input
