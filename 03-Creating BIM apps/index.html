@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    
+</head>
+<body>
+    <!-- Sidebar section -->
+    <aside>
+        <div id="sidebar">
+            <img id="company-logo" src="./asset/company-logo.svg" alt="Construction Company">
+            <ul id="nav-buttons">
+                <li id="projects-btn"> <span class="material-icons-outlined">home</span> Projects</li>
+                <li id="security-btn"> <span class="material-icons-outlined">fingerprint</span> Security</li>
+                <link href="https://fonts.cdnfonts.com/css/sublima" rel="stylesheet">
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content area -->
+    <main id="content">
+        <!-- Modals -->
+        <dialog id="new-project-modal"> 
+            <form id="new-project-form">         
+                <h2> New Project</h2>
+                <div class="input-list">
+                    <!-- Project name input field -->
+                    <div class="form-field-container">
+                        <label for="project-name" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">domain</span>
+                            Name
+                        </label>
+                        <input name="name" id="project-name" type="text" placeholder="What's the name of your project?" style="padding-left: 30px;">
+                        <h5 style="font-family: unset; color: grey; font-size: 10px; font-style: italic; padding-top: 5px;">TIP: Give it a short name</h5>
+                    </div>
+
+                    <!-- Project description input field -->
+                    <div class="form-field-container">
+                        <label for="project-description" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">sort</span>
+                            Description
+                        </label>
+                        <textarea name="description" id="project-description" cols="30" rows="5" placeholder="Enter Project Description"></textarea>
+                    </div>   
+
+                    <!-- Project role selection -->
+                    <div class="form-field-container">
+                        <label for="project-role" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">person</span>
+                            Role
+                        </label>
+                        <select name="userRole" id="project-role">
+                            <option>Architect</option>
+                            <option>Engineer</option>
+                            <option>Developer</option>
+                        </select>
+                    </div>
+
+                    <!-- Project status selection -->
+                    <div class="form-field-container">
+                        <label for="project-status" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">question_mark</span>
+                            Status
+                        </label>
+                        <select name="status" id="project-status">
+                            <option>Pending</option>
+                            <option>Active</option>
+                            <option>Finished</option>
+                        </select>
+                    </div>
+
+                    <!-- Finish date input -->
+                    <div class="form-field-container">
+                        <label for="finish-date" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">event</span>
+                            Finish Date
+                        </label>
+                        <input name="finishDate" id="finish-date" type="date" style="color: white; background-color: var(--background-200); padding: 15px; border-radius: 8px; border: none; font-size: var(--font-base);">
+                    </div>
+
+                    <!-- Cost input -->
+                    <div class="form-field-container">
+                        <label for="project-cost" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">attach_money</span>
+                            Cost
+                        </label>
+                        <input name="cost" id="project-cost" type="number" placeholder="Enter Project Cost" style="padding-left: 30px;">
+                    </div>
+
+                    <!-- Progress input -->
+                    <div class="form-field-container">
+                        <label for="project-progress" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">trending_up</span>
+                            Progress
+                        </label>
+                        <input name="progress" id="project-progress" type="number" placeholder="Enter Project Progress" style="padding-left: 30px;" min="0" max="100">
+                    </div>
+
+                    <!-- Form action buttons -->
+                    <div style="text-align: right">
+                        <button id="cancel-btn" type="button" 
+                            style="background-color: transparent; color: white;" 
+                            onmouseover="this.style.backgroundColor='#444';" 
+                            onmouseout="this.style.backgroundColor='transparent';">Cancel</button>
+                        <button type="submit" 
+                            style="background-color: green; color: white;" 
+                            onmouseover="this.style.backgroundColor='#0f0';" 
+                            onmouseout="this.style.backgroundColor='green';">Accept</button>
+                    </div>
+                </div>
+            </form>
+        </dialog>
+
+        <!-- Error popup -->
+        <dialog id="error-popup"> 
+            <h2 style="color: white;">Error</h2>
+            <p class="error-message" id="error-message">An error occurred.</p>
+            <button class="error-button" id="close-error-btn">Close</button>
+        </dialog>
+
+        <!-- Projects page (initially hidden) -->
+        <div class="page" id="projects-page" style="display:block"> 
+            <!-- Projects header -->
+            <header>
+                <h2> Projects</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button id="import-projects-btn" class="material-symbols-outlined action-icon"> download </button>
+                    <button id="export-projects-btn" class="material-symbols-outlined action-icon"> upload </button>                  
+                    <button id="new-project-btn"> Add New Project </button>
+                </div>
+            </header>
+
+            <!-- Projects list -->
+            <div id="projects-list">
+                <!-- Removed the default project card -->
+            </div>  
+        </div>     
+
+        <!-- Project details section (initially hidden) -->
+        <div class="page" id="project-details" style="display:none;">
+            <!--LEFT-Project Details-->
+            <header>
+                <div>                    
+                    <h2 id="detail-project-title">Hospital Center</h2>
+                    <p id="detail-project-description" style="color:#969696">Community Hospital location</p>
+                </div>
+                <button id="edit-project-btn">Edit Project</button>
+            </header>
+            <div class="main-page-content">
+                <div style="display: flex; flex-direction: column; row-gap: 20px;">
+                    <!--DashboardCard-->                  
+                    <div class="dashboard-card" style="padding: 30px 0;">
+                        <!--1stRow-->
+                        <div style="display: flex; justify-content: space-between; padding: 30px;">
+                            <p id="detail-project-icon" style="font-size: 24px; color: white; background-color: darkorange; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px; padding: 10px; cursor: pointer; display: inline-block;">H</p>
+                            <button class="btn-secondary">
+                                <p> Click Here </p>
+                            </button>
+                        </div>
+                        <!--2ndRow-->
+                        <div style="padding: 30px;">
+                            <h2 id="detail-project-name"> Hospital Center </h2>
+                            <p id="detail-project-summary"> Community hospital located at downtown </p>
+                        </div>
+                        <!--Fields-->
+                        <div style="display: flex; column-gap: 30px; padding:30px">
+                            <div>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Status </p>
+                                <p id="detail-project-status"> Active </p>
+                            </div>
+                            <div>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Cost</p>
+                                <p id="detail-project-cost"> $ 2.542.000 </p>
+                            </div>
+                            <div>
+                                <p style="color: #969696; font-size: var(--font-medium);"> Role </p>
+                                <p id="detail-project-role"> Engineer</p>
+                            </div>
+                            <div>
+                                <p style="color: #969696; font-size: var(--font-medium);">Finish Date </p>
+                                <p id="detail-project-finish-date"> 2023-05-01 </p>
+                            </div>
+                        </div>
+                        <!-- Progress Bar -->
+                        <div style="margin-top: 20px; background-color: var(--background-100); border-radius: 14px; padding: 30px; font-size: 14px;">
+                            <div id="myProgress" style="width: 80%; height: 40px; background-color: #2ecc71; border-radius: 10px; color: #ecf0f1; line-height: 40px; text-align: center;">
+                                80%
+                            </div>
+                        </div>
+                    </div>
+                    <!--ToDoList-->
+                    <div class="dashboard-card">
+                        <!--SearchBar-->
+                        <div style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;">
+                            <h4>To-Do</h4> 
+                            <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="material-icons-outlined">search</span>
+                                    <input type="text" placeholder="Search To-Do by name">
+                                </div>  
+                                <span id="add-todo-btn" class="material-icons-outlined" style="cursor: pointer;" title="Add To-Do" role="button">add</span>
+                            </div>
+                        </div>
+                        <!--ToDoListItem-->
+                        <div id="todo-list" style="display: flex; flex-direction: column; justify-content: space-around;">
+                        </div>
+                        <!-- Additional ToDo items can be added here -->
+                    </div>
+                </div>  
+                <!--RIGHT-Viewer container -->
+                <div id="viewer-container" class="dashboard-card">
+                </div> 
+            </div> 
+        </div> 
+    </main>    
+    <script type="module" src="./src/index.ts"></script>
+</body>
+</html>
