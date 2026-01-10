@@ -11,12 +11,12 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
     return (
         <div className="project-card" onClick={onSelect}>
             <div className="card-header">
-                <span
+                <bim-label
                     className="project-icon"
                     style={{ backgroundColor: project.iconColor }}
                 >
                     {project.getInitials()}
-                </span>
+                </bim-label>
                 <div>
                     <bim-label>{project.name}</bim-label>
                     <bim-label>{project.description}</bim-label>

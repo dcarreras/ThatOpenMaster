@@ -6,6 +6,9 @@
     --primary-200: #415A66;
     --primary-300: #017CB3;
     --primary-400: #5086E6;
+    --beam-primary-color: var(--primary);
+    --bim-ui_main-base: var(--beam-primary-color);
+    --bim-ui_accent-base: var(--beam-primary-color);
     --background: #202124;
     --background-100: #26282b;
     --background-200: #3b3c3f;
@@ -17,6 +20,7 @@
     --font-2xl: 20px;
     --font-3xl: 22px;
     --font-medium: 14px; /* Added this variable */
+    --button-font-size: 14px;
 }
 
 * {
@@ -40,27 +44,11 @@ body {
 
 /* General Styles */
 
-h2 {
-    font-size: var(--font-3xl);
-    font-weight:bolder;
-}
-
-h3 {
-    font-size: var(--font-2xl);
-}
-
-h4 {
-    font-size: var(--font-xl);
-}
-
-h5 {
-    font-size: var(--font-lg);
-}
-
 .bim-h2 {
     font-size: var(--font-3xl);
     font-weight: bolder;
     display: block;
+    --bim-label--fz: var(--font-3xl);
 }
 
 .bim-h4 {
@@ -77,7 +65,7 @@ button{
     padding: 8px 15px;
     cursor: pointer;
     height: 40px;
-    font-size: var(--font-medium);
+    font-size: var(--button-font-size);
     background-color: var(--primary);
     color: white;
     border-radius: 100px;
@@ -86,6 +74,10 @@ button{
 
 button:hover {
     background-color: var(--primary-200);
+}
+
+bim-button {
+    --bim-label--fz: var(--button-font-size);
 }
 
 .page{
@@ -115,17 +107,8 @@ button:hover {
     row-gap: 15px;
 }
 
-#nav-buttons li {
-    list-style-type: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: var(--font-medium);
-    cursor: pointer;
-    background-color: var(--primary);
-}
-
-#nav-buttons li:hover {
-    background-color: var(--primary-200);
+#nav-buttons beam-button {
+    --bim-button--bgc: transparent;
 }
 
 /* Content Style */
@@ -209,6 +192,7 @@ button:hover {
     padding: 4px 8px;
     font-weight: 700;
     text-transform: uppercase;
+    --bim-label--c: white;
 }
 
 .card-content {
@@ -481,7 +465,7 @@ input:focus, textarea:focus, select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-medium);
+    font-size: var(--button-font-size);
     padding: 8px 15px;
     cursor: pointer;
     height: 40px;

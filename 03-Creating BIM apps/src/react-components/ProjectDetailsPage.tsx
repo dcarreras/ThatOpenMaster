@@ -109,9 +109,9 @@ export function ProjectDetailsPage({
                     }}
                 >
                     <div className="todo-row">
-                        <span className="material-icons-outlined todo-icon">
+                        <bim-label className="material-icons-outlined todo-icon">
                             construction
-                        </span>
+                        </bim-label>
                         <div className="todo-text">
                             <bim-label className="todo-title">{todo.title}</bim-label>
                         </div>
@@ -237,7 +237,7 @@ export function ProjectDetailsPage({
                             <bim-label className="bim-h4">To-Do</bim-label>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <SearchBox />
-                                <span
+                                <bim-label
                                     id="add-todo-btn"
                                     className="material-icons-outlined"
                                     style={{ cursor: "pointer" }}
@@ -246,7 +246,7 @@ export function ProjectDetailsPage({
                                     onClick={handleAddTodo}
                                 >
                                     add
-                                </span>
+                                </bim-label>
                             </div>
                         </div>
                         <div

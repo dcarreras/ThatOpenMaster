@@ -142,9 +142,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 domain
-                            </span>
+                            </bim-label>
                             Name
                         </label>
                         <input
@@ -180,9 +180,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 sort
-                            </span>
+                            </bim-label>
                             Description
                         </label>
                         <textarea
@@ -206,9 +206,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 person
-                            </span>
+                            </bim-label>
                             Role
                         </label>
                         <select
@@ -235,9 +235,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 question_mark
-                            </span>
+                            </bim-label>
                             Status
                         </label>
                         <select
@@ -264,9 +264,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 event
-                            </span>
+                            </bim-label>
                             Finish Date
                         </label>
                         <input
@@ -296,9 +296,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 attach_money
-                            </span>
+                            </bim-label>
                             Cost
                         </label>
                         <input
@@ -322,9 +322,9 @@ export function ProjectFormDialog({
                                 color: "white"
                             }}
                         >
-                            <span className="material-icons-outlined" style={{ marginRight: 5 }}>
+                            <bim-label className="material-icons-outlined" style={{ marginRight: 5 }}>
                                 trending_up
-                            </span>
+                            </bim-label>
                             Progress
                         </label>
                         <input

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { IProject, Project } from "../classes/Project";
+import { appIcons } from "../globals";
 import { ProjectCard } from "./ProjectCard";
 
 interface ProjectsPageProps {
@@ -9,6 +10,28 @@ interface ProjectsPageProps {
     onImportProjects: (projects: IProject[]) => void;
     onExportProjects: (filename: string) => void;
     onError: (message: string) => void;
+}
+
+type BimButtonElement = HTMLElement & {
+    onclick: ((event: MouseEvent) => void) | null;
+};
+
+interface BimButtonProps extends React.HTMLAttributes<HTMLElement> {
+    label?: string;
+    icon?: string;
+    onclick?: (event: MouseEvent) => void;
+}
+
+function BimButton({ onclick, ...props }: BimButtonProps) {
+    const ref = React.useRef<BimButtonElement | null>(null);
+
+    React.useEffect(() => {
+        if (ref.current) {
+            ref.current.onclick = onclick ?? null;
+        }
+    }, [onclick]);
+
+    return <bim-button ref={ref} {...props} />;
 }
 
 export function ProjectsPage({
@@ -76,36 +99,40 @@ export function ProjectsPage({
         <div className="page" id="projects-page" style={{ display: "block" }}>
             <header>
                 <div className="projects-header">
-                    <bim-label className="bim-h2">Projects</bim-label>
+                    <beam-label className="bim-h2">Projects</beam-label>
                     <div className="projects-search">
-                        <span className="material-icons-outlined">search</span>
-                        <input
-                            type="search"
+                        <beam-text-input
+                            icon={appIcons.search}
                             placeholder="Search projects by name..."
                             aria-label="Search projects by name"
+                            debounce="1000"
                             value={searchQuery}
-                            onChange={(event) => setSearchQuery(event.target.value)}
-                        />
+                            onInput={(event: React.FormEvent<HTMLElement>) => {
+                                const target = event.currentTarget as HTMLElement & { value?: string };
+                                setSearchQuery(target.value ?? "");
+                            }}
+                        ></beam-text-input>
                     </div>
                 </div>
                 <div className="projects-actions">
-                    <button
+                    <BimButton
                         id="import-projects-btn"
-                        className="material-symbols-outlined action-icon"
-                        onClick={handleImport}
-                    >
-                        download
-                    </button>
-                    <button
+                        icon={appIcons.download}
+                        label="Download"
+                        onclick={handleImport}
+                    />
+                    <BimButton
                         id="export-projects-btn"
-                        className="material-symbols-outlined action-icon"
-                        onClick={handleExport}
-                    >
-                        upload
-                    </button>
-                    <button id="new-project-btn" onClick={onOpenNewProject}>
-                        Add New Project
-                    </button>
+                        icon={appIcons.upload}
+                        label="Upload"
+                        onclick={handleExport}
+                    />
+                    <BimButton
+                        id="new-project-btn"
+                        icon={appIcons.create}
+                        label="Add New Project"
+                        onclick={onOpenNewProject}
+                    />
                 </div>
             </header>
 
