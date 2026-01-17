@@ -24,6 +24,12 @@ if (BimButton && !customElements.get("beam-button")) {
     customElements.define("beam-button", BeamButton);
 }
 
+const BimGrid = customElements.get("bim-grid");
+if (BimGrid && !customElements.get("beam-grid")) {
+    class BeamGrid extends (BimGrid as typeof HTMLElement) {}
+    customElements.define("beam-grid", BeamGrid);
+}
+
 
 const rootElement = document.getElementById("app");
 if (!rootElement) {
