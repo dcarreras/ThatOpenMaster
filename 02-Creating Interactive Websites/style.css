@@ -303,6 +303,7 @@ input:focus, textarea:focus, select:focus {
     padding: 2px;
     border-radius: 10px;
     cursor: pointer; 
+    color: white;
 }
 .todo-item:hover{
     filter: brightness(1.08);
@@ -355,12 +356,34 @@ input:focus, textarea:focus, select:focus {
     margin: 0;
 }
 
+.todo-actions {
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.todo-edit-btn {
+    height: 28px;
+    padding: 4px 12px;
+    font-size: 11px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.todo-edit-btn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
 .todo-item.todo-pending {
-    background-color: var(--background-200);
+    background-color: #e74c3c;
 }
 
 .todo-item.todo-in-progress {
-    background-color: var(--primary);
+    background-color: #f1c40f;
+    color: #1a1a1a;
 }
 
 .todo-item.todo-done {

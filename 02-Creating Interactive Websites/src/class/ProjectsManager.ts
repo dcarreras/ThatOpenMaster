@@ -193,7 +193,6 @@ export class ProjectsManager{
                 : statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
             const item = document.createElement("div");
             item.className = `todo-item todo-${statusClass}`;
-            item.style.color = "white";
             const dateLabel = todo.dueDate ? todo.dueDate : "No date";
             item.innerHTML = `
                 <div class="todo-row">
@@ -207,27 +206,11 @@ export class ProjectsManager{
                         <p class="todo-date">${dateLabel}</p>
                         <p class="todo-status">${statusLabel}</p>
                     </div>
+                    <div class="todo-actions">
+                        <button class="todo-edit-btn" type="button" data-index="${index}">Edit</button>
+                    </div>
                 </div>
             `;
-            item.addEventListener("click", () => {
-                const titleInput = prompt("Update the To-Do name:", todo.title);
-                if (titleInput === null) {
-                    return;
-                }
-                const dateInput = prompt("Update the due date (YYYY-MM-DD) or leave blank:", todo.dueDate ?? "");
-                if (dateInput === null) {
-                    return;
-                }
-                const statusInput = prompt("Update status (pending, in-progress, done):", todo.status ?? "pending");
-                if (statusInput === null) {
-                    return;
-                }
-                this.updateTodo(project.id, index, {
-                    title: titleInput,
-                    dueDate: dateInput,
-                    status: statusInput
-                });
-            });
             list.appendChild(item);
         });
     }

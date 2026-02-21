@@ -1,5 +1,5 @@
 //Importacion de las clases y interfaces necesarias
-import { Project, IProject, UserRole, ProjectStatus } from "./class/Project";
+import { Project, IProject, ITodo, UserRole, ProjectStatus } from "./class/Project";
 import { ProjectsManager } from "./class/ProjectsManager";
 
 //Funcion para mostrar un modal
@@ -64,8 +64,16 @@ const closeErrorBtn = document.getElementById("close-error-btn") as HTMLButtonEl
 let errorStep = 0; // Variable para rastrear el paso actual del error
 let editingProjectId: string | null = null;
 
+const todoForm = document.getElementById("todo-form") as HTMLFormElement;
+const todoCancelBtn = document.getElementById("todo-cancel-btn") as HTMLButtonElement;
+
+let editingTodoProjectId: string | null = null;
+let editingTodoIndex: number | null = null;
+
 const projectFormTitle = projectForm ? projectForm.querySelector("h2") as HTMLElement | null : null;
 const projectSubmitBtn = projectForm ? projectForm.querySelector("button[type='submit']") as HTMLButtonElement | null : null;
+const todoFormTitle = todoForm ? todoForm.querySelector("h2") as HTMLElement | null : null;
+const todoSubmitBtn = todoForm ? todoForm.querySelector("button[type='submit']") as HTMLButtonElement | null : null;
 
 function setProjectFormMode(isEditing: boolean) {
     if (projectFormTitle) {
@@ -81,6 +89,21 @@ function resetProjectFormState() {
     setProjectFormMode(false);
 }
 
+function setTodoFormMode(isEditing: boolean) {
+    if (todoFormTitle) {
+        todoFormTitle.textContent = isEditing ? "Edit To-Do" : "New To-Do";
+    }
+    if (todoSubmitBtn) {
+        todoSubmitBtn.textContent = isEditing ? "Save" : "Create";
+    }
+}
+
+function resetTodoFormState() {
+    editingTodoProjectId = null;
+    editingTodoIndex = null;
+    setTodoFormMode(false);
+}
+
 function setSelectValue(select: HTMLSelectElement, targetValue: string) {
     const normalized = targetValue.toLowerCase();
     const match = Array.from(select.options).find((option) => {
@@ -89,6 +112,28 @@ function setSelectValue(select: HTMLSelectElement, targetValue: string) {
     if (match) {
         select.value = match.value;
     }
+}
+
+function openTodoModal(projectId: string, todo?: ITodo, index?: number) {
+    editingTodoProjectId = projectId;
+    editingTodoIndex = typeof index === "number" ? index : null;
+    setTodoFormMode(editingTodoIndex !== null);
+
+    const titleInput = todoForm?.elements.namedItem("todoTitle") as HTMLInputElement | null;
+    const dueDateInput = todoForm?.elements.namedItem("todoDueDate") as HTMLInputElement | null;
+    const statusSelect = todoForm?.elements.namedItem("todoStatus") as HTMLSelectElement | null;
+
+    if (titleInput) {
+        titleInput.value = todo?.title ?? "";
+    }
+    if (dueDateInput) {
+        dueDateInput.value = todo?.dueDate ?? "";
+    }
+    if (statusSelect) {
+        setSelectValue(statusSelect, todo?.status ?? "pending");
+    }
+
+    showModal("todo-modal");
 }
 
 //Evento para manejar el envio del formulario de nuevo proyecto
@@ -240,25 +285,48 @@ if (addTodoBtn) {
             errorPopup.showModal();
             return;
         }
+        todoForm?.reset();
+        resetTodoFormState();
+        openTodoModal(projectId);
+    });
+} else {
+    console.warn("Add To-Do button was not found");
+}
 
-        const title = prompt("Enter the To-Do name:");
-        const trimmedTitle = title ? title.trim() : "";
-        if (!trimmedTitle) {
+if (todoForm) {
+    todoForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!editingTodoProjectId) {
+            errorMessage.textContent = "Select a project before saving a To-Do.";
+            errorPopup.showModal();
             return;
         }
 
-        const dueDateInput = prompt("Enter a due date (YYYY-MM-DD) or leave blank:");
-        const trimmedDate = dueDateInput ? dueDateInput.trim() : "";
-        const statusInput = prompt("Enter status (pending, in-progress, done):", "pending");
-        const trimmedStatus = statusInput ? statusInput.trim() : "";
-        const todoData = {
-            title: trimmedTitle,
-            dueDate: trimmedDate ? trimmedDate : undefined,
-            status: trimmedStatus ? trimmedStatus : undefined
+        const formData = new FormData(todoForm);
+        const titleValue = String(formData.get("todoTitle") ?? "").trim();
+        if (!titleValue) {
+            errorMessage.textContent = "To-Do title is required.";
+            errorPopup.showModal();
+            return;
+        }
+
+        const dueDateValue = String(formData.get("todoDueDate") ?? "").trim();
+        const statusValue = String(formData.get("todoStatus") ?? "").trim();
+        const todoData: ITodo = {
+            title: titleValue,
+            dueDate: dueDateValue ? dueDateValue : undefined,
+            status: statusValue ? statusValue : undefined
         };
 
         try {
-            projectsManager.addTodo(projectId, todoData);
+            if (editingTodoIndex === null) {
+                projectsManager.addTodo(editingTodoProjectId, todoData);
+            } else {
+                projectsManager.updateTodo(editingTodoProjectId, editingTodoIndex, todoData);
+            }
+            todoForm.reset();
+            resetTodoFormState();
+            closeModal("todo-modal");
         } catch (error) {
             console.error(error);
             errorMessage.textContent = error.message;
@@ -266,7 +334,59 @@ if (addTodoBtn) {
         }
     });
 } else {
-    console.warn("Add To-Do button was not found");
+    console.warn("todo-form was not found.");
+}
+
+if (todoCancelBtn) {
+    todoCancelBtn.addEventListener("click", () => {
+        todoForm?.reset();
+        resetTodoFormState();
+        closeModal("todo-modal");
+    });
+} else {
+    console.warn("todo-cancel-btn was not found.");
+}
+
+const todoList = document.getElementById("todo-list");
+if (todoList) {
+    todoList.addEventListener("click", (event) => {
+        const target = event.target as HTMLElement;
+        const editButton = target.closest(".todo-edit-btn") as HTMLButtonElement | null;
+        if (!editButton) {
+            return;
+        }
+
+        const projectId = detailsPage?.dataset.projectId;
+        if (!projectId) {
+            errorMessage.textContent = "Select a project before editing a To-Do.";
+            errorPopup.showModal();
+            return;
+        }
+
+        const indexValue = editButton.dataset.index;
+        const todoIndex = indexValue ? Number(indexValue) : NaN;
+        if (Number.isNaN(todoIndex)) {
+            return;
+        }
+
+        const project = projectsManager.getProject(projectId);
+        if (!project) {
+            errorMessage.textContent = "Project not found.";
+            errorPopup.showModal();
+            return;
+        }
+
+        const todo = project.todos?.[todoIndex];
+        if (!todo) {
+            errorMessage.textContent = "To-Do not found.";
+            errorPopup.showModal();
+            return;
+        }
+
+        openTodoModal(projectId, todo, todoIndex);
+    });
+} else {
+    console.warn("todo-list was not found.");
 }
 
 //Crear un proyecto por defecto

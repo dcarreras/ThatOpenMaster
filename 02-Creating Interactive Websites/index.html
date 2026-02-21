@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./asset/favicon.ico" type="image/x-icon">
     
 </head>
 <body>
@@ -123,6 +123,50 @@
             <h2 style="color: white;">Error</h2>
             <p class="error-message" id="error-message">An error occurred.</p>
             <button class="error-button" id="close-error-btn">Close</button>
+        </dialog>
+
+        <!-- To-Do modal -->
+        <dialog id="todo-modal">
+            <form id="todo-form">
+                <h2 id="todo-form-title">New To-Do</h2>
+                <div class="input-list">
+                    <div class="form-field-container">
+                        <label for="todo-title" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">task</span>
+                            Title
+                        </label>
+                        <input name="todoTitle" id="todo-title" type="text" placeholder="To-Do title">
+                    </div>
+                    <div class="form-field-container">
+                        <label for="todo-date" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">event</span>
+                            Due Date
+                        </label>
+                        <input name="todoDueDate" id="todo-date" type="date">
+                    </div>
+                    <div class="form-field-container">
+                        <label for="todo-status" style="display: flex; align-items: center; font-family: 'Sublima', sans-serif; color: white;">
+                            <span class="material-icons-outlined" style="margin-right: 5px;">check_circle</span>
+                            Status
+                        </label>
+                        <select name="todoStatus" id="todo-status">
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+                    <div style="text-align: right">
+                        <button id="todo-cancel-btn" type="button" 
+                            style="background-color: transparent; color: white;" 
+                            onmouseover="this.style.backgroundColor='#444';" 
+                            onmouseout="this.style.backgroundColor='transparent';">Cancel</button>
+                        <button type="submit" 
+                            style="background-color: green; color: white;" 
+                            onmouseover="this.style.backgroundColor='#0f0';" 
+                            onmouseout="this.style.backgroundColor='green';">Save</button>
+                    </div>
+                </div>
+            </form>
         </dialog>
 
         <!-- Projects page (initially hidden) -->
