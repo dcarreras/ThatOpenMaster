@@ -7,6 +7,7 @@ import { ProjectDetailsPage } from "./react-components/ProjectDetailsPage";
 import { ProjectFormDialog } from "./react-components/ProjectFormDialog";
 import { ProjectsPage } from "./react-components/ProjectsPage";
 import { Sidebar } from "./react-components/Sidebar";
+import { ViewerPage } from "./react-components/ViewerPage";
 
 const initialProjectsUrl = new URL("../export/projects_test_260103.json", import.meta.url);
 
@@ -163,6 +164,10 @@ export function App() {
                     />
                     <Route
                         path="/projects/:projectId"
+                        element={<ViewerPage />}
+                    />
+                    <Route
+                        path="/projects/:projectId/details"
                         element={
                             <ProjectDetailsPage
                                 projects={projects}

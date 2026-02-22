@@ -22,7 +22,7 @@
   },
   {
     "name": "Data Center",
-    "description": "Construcción de un centro de datos con redundancia eléctrica y climatización de precisión.",
+    "description": "Construction of a data center with electrical redundancy and precision cooling.",
     "status": "active",
     "userRole": "architect",
     "finishDate": "2026-05-18T00:00:00.000Z",
@@ -43,7 +43,7 @@
   },
   {
     "name": "Pharma Project",
-    "description": "Edificación de planta farmacéutica con áreas GMP y control ambiental estricto.",
+    "description": "Pharmaceutical plant construction with GMP areas and strict environmental control.",
     "status": "pending",
     "userRole": "structural engineer",
     "finishDate": "2026-09-30T00:00:00.000Z",
@@ -64,7 +64,7 @@
   },
   {
     "name": "Clean Room Project",
-    "description": "Implementación de salas limpias ISO 7 para fabricación de dispositivos médicos.",
+    "description": "Implementation of ISO 7 clean rooms for medical device manufacturing.",
     "status": "active",
     "userRole": "mechanical engineer",
     "finishDate": "2026-07-12T00:00:00.000Z",
@@ -85,7 +85,7 @@
   },
   {
     "name": "Logistics Hub",
-    "description": "Construcción de nave logística con muelles de carga y automatización de racks.",
+    "description": "Construction of a logistics warehouse with loading docks and rack automation.",
     "status": "pending",
     "userRole": "electrical engineer",
     "finishDate": "2026-11-05T00:00:00.000Z",
@@ -102,7 +102,7 @@
   },
   {
     "name": "Hospital Expansion",
-    "description": "Ampliación de hospital con nuevas salas de cirugía y UCI.",
+    "description": "Hospital expansion with new operating rooms and ICU.",
     "status": "finished",
     "userRole": "developer",
     "finishDate": "2026-02-28T00:00:00.000Z",

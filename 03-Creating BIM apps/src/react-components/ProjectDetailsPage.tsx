@@ -1,8 +1,11 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import type * as OBC from "@thatopen/components";
 import { ITodo, Project } from "../classes/Project";
 import { SearchBox } from "./SearchBox";
 import { ThreeViewer } from "./ThreeViewer";
+import { setupComponents } from "../bim-components";
 
 interface ProjectDetailsPageProps {
     projects: Project[];
@@ -18,6 +21,37 @@ export function ProjectDetailsPage({
     onUpdateTodo
 }: ProjectDetailsPageProps) {
     const { projectId } = useParams();
+    const [viewport, setViewport] = useState<HTMLElement | null>(null);
+    const [components, setComponents] = useState<OBC.Components | null>(null);
+    const [world, setWorld] = useState<
+        OBC.SimpleWorld<OBC.SimpleScene, OBC.OrthoPerspectiveCamera, OBC.SimpleRenderer> | null
+    >(null);
+
+    useEffect(() => {
+        let isMounted = true;
+        let localComponents: OBC.Components | null = null;
+
+        async function setup() {
+            const { components, world, viewport } = await setupComponents();
+            if (!isMounted) {
+                components.dispose();
+                return;
+            }
+
+            localComponents = components;
+            setComponents(components);
+            setWorld(world);
+            setViewport(viewport);
+        }
+        void setup();
+
+        return () => {
+            isMounted = false;
+            if (localComponents) {
+                localComponents.dispose();
+            }
+        };
+    }, []);
     const project = projects.find((item) => item.id === projectId) ?? null;
 
     if (!project) {
@@ -261,7 +295,9 @@ export function ProjectDetailsPage({
                         </div>
                     </div>
                 </div>
-                <ThreeViewer />
+                {viewport && components && world && (
+                    <ThreeViewer viewport={viewport} components={components} world={world} />
+                )}
             </div>
         </div>
     );

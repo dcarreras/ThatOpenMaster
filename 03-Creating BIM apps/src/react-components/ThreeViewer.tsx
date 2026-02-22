@@ -1,103 +1,164 @@
 import { useEffect, useRef } from "react";
-import { html, type Grid } from "@thatopen/ui";
+import type { ChangeEvent } from "react";
+import type { FragmentsGroup } from "@thatopen/fragments";
+import * as OBC from "@thatopen/components";
+import * as THREE from "three";
 
-type GridElements = [
-    { name: "header"; state: Record<string, unknown> },
-    { name: "sidebar"; state: Record<string, unknown> },
-    { name: "componentsGrid"; state: Record<string, unknown> }
-];
-type BeamGrid = Grid<["main"], GridElements>;
+interface ThreeViewerProps {
+    viewport: HTMLElement;
+    components: OBC.Components;
+    world: OBC.SimpleWorld<OBC.SimpleScene, OBC.OrthoPerspectiveCamera, OBC.SimpleRenderer>;
+}
 
-export function ThreeViewer() {
-    const viewerGridRef = useRef<BeamGrid | null>(null);
+export function ThreeViewer({ viewport, components, world }: ThreeViewerProps) {
+    const viewportHostRef = useRef<HTMLDivElement | null>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const ifcReadyRef = useRef(false);
+    const ifcFallbackRef = useRef(false);
+    const loadingRef = useRef(false);
 
     useEffect(() => {
-        if (!viewerGridRef.current) {
+        const host = viewportHostRef.current;
+        if (!host) {
             return;
         }
 
-        const elements = {
-            header: {
-                template: () => html`
-                    <header class="viewer-grid__header">
-                        <div class="viewer-grid__brand">
-                            <span class="viewer-grid__logo">BIM</span>
-                            <div class="viewer-grid__brand-text">
-                                <div class="viewer-grid__title">Proyecto actual</div>
-                                <div class="viewer-grid__subtitle">Vista general</div>
-                            </div>
-                        </div>
-                        <div class="viewer-grid__actions">
-                            <beam-button label="Guardar"></beam-button>
-                            <beam-button label="Compartir"></beam-button>
-                        </div>
-                    </header>
-                `,
-                initialState: {}
-            },
-            sidebar: {
-                template: () => html`
-                    <aside class="viewer-grid__sidebar">
-                        <div>
-                            <div class="viewer-grid__section-title">Herramientas</div>
-                            <div class="viewer-grid__tool-list">
-                                <beam-button label="Seleccionar"></beam-button>
-                                <beam-button label="Medir"></beam-button>
-                                <beam-button label="Seccion"></beam-button>
-                                <beam-button label="Aislar"></beam-button>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="viewer-grid__section-title">Capas</div>
-                            <div class="viewer-grid__chip-list">
-                                <span class="viewer-grid__chip">Estructura</span>
-                                <span class="viewer-grid__chip">MEP</span>
-                                <span class="viewer-grid__chip">Arquitectura</span>
-                            </div>
-                        </div>
-                    </aside>
-                `,
-                initialState: {}
-            },
-            componentsGrid: {
-                template: () => html`
-                    <section class="viewer-grid__main">
-                        <div class="viewer-grid__viewport">
-                            <div class="viewer-grid__viewport-title">Viewport 3D</div>
-                            <div class="viewer-grid__viewport-hint">
-                                Arrastra para orbitar y usa la rueda para zoom.
-                            </div>
-                        </div>
-                        <div class="viewer-grid__panel">
-                            <div class="viewer-grid__panel-title">Propiedades</div>
-                            <div class="viewer-grid__panel-body">
-                                Selecciona un elemento para ver detalles.
-                            </div>
-                        </div>
-                    </section>
-                `,
-                initialState: {}
+        viewport.classList.add("bim-viewer__viewport");
+        host.replaceChildren(viewport);
+
+        requestAnimationFrame(() => {
+            world.renderer?.resize();
+            world.camera.updateAspect();
+        });
+    }, [viewport, world]);
+
+    const handlePickIfc = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleZoom = async (direction: "in" | "out") => {
+        const controls = world.camera.controls;
+        if (!controls) {
+            return;
+        }
+
+        const isOrtho = world.camera.three instanceof THREE.OrthographicCamera;
+        if (isOrtho) {
+            const zoomStep = direction === "in" ? 0.2 : -0.2;
+            await controls.zoom(zoomStep, true);
+            return;
+        }
+
+        const baseStep = Math.max(0.5, controls.distance * 0.1);
+        const dollyStep = direction === "in" ? baseStep : -baseStep;
+        await controls.dolly(dollyStep, true);
+    };
+
+    const handleFit = async () => {
+        const fragments = components.get(OBC.FragmentsManager);
+        if (fragments.meshes.length > 0) {
+            await world.camera.fit(fragments.meshes);
+        } else {
+            await world.camera.controls.setLookAt(12, 10, 12, 0, 0, 0);
+        }
+    };
+
+    const handleIfcChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file || loadingRef.current) {
+            event.target.value = "";
+            return;
+        }
+
+        loadingRef.current = true;
+        try {
+            const buffer = await file.arrayBuffer();
+            const data = new Uint8Array(buffer);
+            const ifcLoader = components.get(OBC.IfcLoader);
+
+            if (!ifcReadyRef.current) {
+                await ifcLoader.setup({ autoSetWasm: true });
+                ifcReadyRef.current = true;
             }
-        };
 
-        const rows = ["72px", "1fr"];
-        const columns = ["260px", "1fr"];
-        const layouts = {
-            main: {
-                template: `
-                    "header header" ${rows[0]}
-                    "sidebar componentsGrid" ${rows[1]}
-                    / ${columns.join(" ")}
-                `,
-                rows,
-                columns
+            const fragments = components.get(OBC.FragmentsManager);
+            for (const group of [...fragments.groups.values()]) {
+                fragments.disposeGroup(group);
             }
-        };
+            let loadedGroup: FragmentsGroup | null = null;
+            try {
+                loadedGroup = await ifcLoader.load(data);
+            } catch (error) {
+                if (!ifcFallbackRef.current) {
+                    ifcFallbackRef.current = true;
+                    await ifcLoader.setup({
+                        autoSetWasm: false,
+                        wasm: {
+                            path: "/web-ifc/",
+                            absolute: true
+                        }
+                    });
+                    loadedGroup = await ifcLoader.load(data);
+                } else {
+                    throw error;
+                }
+            }
 
-        viewerGridRef.current.elements = elements;
-        viewerGridRef.current.layouts = layouts;
-        viewerGridRef.current.layout = "main";
-    }, []);
+            if (loadedGroup) {
+                world.scene.three.add(loadedGroup);
+            }
 
-    return <beam-grid ref={viewerGridRef} className="viewer-grid dashboard-card" />;
+            if (fragments.meshes.length > 0) {
+                await world.camera.fit(fragments.meshes);
+            }
+        } catch (error) {
+            console.error("Error loading IFC:", error);
+        } finally {
+            loadingRef.current = false;
+            event.target.value = "";
+        }
+    };
+
+    return (
+        <div className="bim-viewer">
+            <div ref={viewportHostRef} className="bim-viewer__viewport-host" />
+            <div className="bim-viewer__toolbar">
+                <button type="button" className="bim-viewer__button" onClick={handlePickIfc}>
+                    Load IFC
+                </button>
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".ifc"
+                    onChange={handleIfcChange}
+                    style={{ display: "none" }}
+                />
+            </div>
+            <div className="bim-viewer__toolbar bim-viewer__toolbar--bottom">
+                <button
+                    type="button"
+                    className="bim-viewer__button bim-viewer__button--ghost"
+                    onClick={() => handleZoom("out")}
+                    title="Zoom out"
+                >
+                    −
+                </button>
+                <button
+                    type="button"
+                    className="bim-viewer__button bim-viewer__button--ghost"
+                    onClick={() => handleZoom("in")}
+                    title="Zoom in"
+                >
+                    +
+                </button>
+                <button
+                    type="button"
+                    className="bim-viewer__button bim-viewer__button--ghost"
+                    onClick={handleFit}
+                >
+                    Fit View
+                </button>
+            </div>
+        </div>
+    );
 }

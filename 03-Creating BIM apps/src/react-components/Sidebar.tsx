@@ -32,8 +32,8 @@ export function Sidebar() {
             <div id="sidebar">
                 <img
                     id="company-logo"
-                    src="/asset/company-logo.svg"
-                    alt="Construction Company"
+                    src="/asset/valtria_logo.svg"
+                    alt="Valtria"
                 />
                 <ul id="nav-buttons">
                     <BeamButton

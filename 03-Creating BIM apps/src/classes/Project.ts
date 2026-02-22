@@ -34,7 +34,7 @@ export interface IProject {
 
 //Clase para representar un proyecto
 export class Project implements IProject {
-    //Propiedades para satisfacer la interface IProject
+    // Properties to satisfy the IProject interface
     name: string;
     description: string;
     status: ProjectStatus;
